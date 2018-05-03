@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<link rel="import" href="common.html" id="common"/>
+<link href="css/index.css" rel="stylesheet"/>
+<script src="js/index.js"></script>
+<title>index</title>
+</head>
+<body>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">TuCC_(:з」∠)_</a>
+			</div>
+			<div>
+		        <ul class="nav navbar-nav">
+		            <li class="active"><a href="#">首页</a></li>
+		            <li><a href="#">博客</a></li>
+		            <li><a href="#">相册</a></li>
+		            <li><a href="#">留言</a></li>
+		            <li class="dropdown hidden">
+		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">下拉<b class="caret"></b>
+		                </a>
+		                <ul class="dropdown-menu">
+		                    <li><a href="#">JAVA</a></li>
+		                    <li class="divider"></li>
+		                    <li><a href="#">C</a></li>
+		                    <li class="divider"></li>
+		                </ul>
+		            </li>
+		            
+		        </ul>
+    		</div>
+    		<div class="right">
+    			<span><a>登录</a>/<a>注册</a></span>
+    		</div>
+		</div>
+	</nav>
+	<h1 th:text="${words}"></h1>
+	<script>
+		$(document).ready(function(){
+			$(".navbar .right a")[0].href="javascript:opendl();";
+			$(".navbar .right a")[1].href="javascript:openzc();";
+		});
+	</script>
+</body>
+</html>

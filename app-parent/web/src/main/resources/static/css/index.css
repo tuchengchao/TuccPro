@@ -1,0 +1,11 @@
+.right{
+	padding:10px 20px;
+	float:right;
+}
+a{
+	color: black;
+	cursor: pointer;
+}
+a:hover{
+	text-decoration: none;
+}
