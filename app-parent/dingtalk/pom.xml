@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.tcc</groupId>
 		<artifactId>spb</artifactId>
-		<version>${project.version}</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>dingtalk</artifactId>
 	<name>dingtalk</name>
@@ -29,9 +29,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>${project.groupId}</groupId>
+			<groupId>com.tcc</groupId>
 			<artifactId>common</artifactId>
-			<version>${project.version}</version>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

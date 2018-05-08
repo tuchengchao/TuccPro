@@ -6,24 +6,37 @@
 </head>
 <body>
 	<!-- 模态框（Modal） -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
 					</button>
-					<h4 class="modal-title" id="myModalLabel">
+					<h4 class="modal-title">
 						登录
 					</h4>
 				</div>
 				<div class="modal-body">
-					在这里添加一些文本
+					<form role="form" action="user/login" method="post">
+					  <div class="form-group">
+					    <label for="username">用户名</label>
+					    <input type="text" class="form-control" name="username" placeholder="请输入用户名"/>
+					  </div>
+					  <div class="form-group">
+					    <label for="password">密码</label>
+					    <input type="password" class="form-control" name="password" placeholder="请输密码"/>
+					  </div>
+					  <div style="text-align: center">
+					  	<button type="submit" class="btn btn-default">登录</button>
+					  	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					  </div>
+					</form>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer hidden">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 					</button>
-					<button type="button" class="btn btn-primary">
+					<button type="button" class="btn btn-primary" onclick="toastr.success('你有新消息了!');">
 						提交更改
 					</button>
 				</div>

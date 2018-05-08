@@ -13,16 +13,8 @@
 	<url>http://maven.apache.org</url>
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <druid.version>1.1.2</druid.version>
-        <mybatis-plus.version>2.1.8</mybatis-plus.version>
-        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
     </properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -73,6 +65,36 @@
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-thymeleaf</artifactId>
 	    </dependency>
+		<!-- MyBatis plus增强和springboot的集成 -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus</artifactId>
+			<version>${mybatis-plus.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatisplus-spring-boot-starter</artifactId>
+			<version>${mybatisplus-spring-boot-starter.version}</version>
+		</dependency>
+		<!-- 通用  -->
+		<dependency>
+			<groupId>com.tcc</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- redis -->
+		<dependency>
+			<groupId>com.tcc</groupId>
+			<artifactId>redis</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- redis需要1.13.7版本的此jar -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-commons</artifactId>
+		    <version>1.13.7.RELEASE</version>
+		</dependency>
+		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -102,6 +124,13 @@
 				<configuration>
 					<skipTests>true</skipTests>
 				</configuration>
+			</plugin>
+			<plugin>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-maven-plugin</artifactId>
+			    <configuration>
+			        <fork>false</fork>
+			    </configuration>
 			</plugin>
 		</plugins>
 		<resources>

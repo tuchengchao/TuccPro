@@ -1,2 +1,14 @@
 F:\MyPro\app-parent\web\src\main\java\com\tcc\web\controller\IndexController.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\mapper\DictionaryMapper.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\service\DictionaryService.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\service\UserService.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\controller\DictionaryController.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\utils\SpringContextUtil.java
 F:\MyPro\app-parent\web\src\main\java\com\tcc\web\Application.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\config\MybatisPlusConfig.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\mapper\UserMapper.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\utils\ApplicationContextProvider.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\config\DruidConfig.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\entity\Dictionary.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\controller\UserController.java
+F:\MyPro\app-parent\web\src\main\java\com\tcc\web\entity\User.java

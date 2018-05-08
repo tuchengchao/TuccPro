@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.8.RELEASE</version>
+		<version>1.5.10.RELEASE</version>
 	</parent>
 	<groupId>com.tcc</groupId>
 	<artifactId>spb</artifactId>
@@ -17,6 +17,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<druid.version>1.1.2</druid.version>
+		<mybatis-plus.version>2.1.8</mybatis-plus.version>
+		<mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
 	</properties>
 
 	<dependencyManagement>
@@ -30,6 +34,10 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+			</dependency>
+			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>3.8.1</version>
@@ -40,21 +48,22 @@
 	<build>
 		<plugins>
 			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <!--<proc>none</proc>-->
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-    	</plugins>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<!--<proc>none</proc> -->
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 	<modules>
 		<module>dingtalk</module>
 		<module>lucene</module>
 		<module>common</module>
-		<module>voice</module>
+		<!-- <module>voice</module> -->
 		<module>web</module>
+		<module>redis</module>
 	</modules>
 </project>

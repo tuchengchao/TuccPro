@@ -1,13 +1,10 @@
-function opendl(){
-	var loader = $("#modalloader");
-	if(loader.length == 0){
-		$(document.body).append("<div id=\"modalloader\"></div>");
-	}
-	else{
-		loader.empty();
-	}
-	$("#modalloader").load("login.html");
-	setTimeout(function(){
-		$("#myModal").modal('show');
-	}, 100);
+function open_dl(){
+	tw.UI.modal("login.html", 300, 300);
 }
+function open_zc(){
+	tw.UI.modal("register.html", 300, 300);
+}
+$(document).ready(function(){
+	$(".navbar .right a")[0].href="javascript:open_dl();";
+	$(".navbar .right a")[1].href="javascript:open_zc();";
+});
