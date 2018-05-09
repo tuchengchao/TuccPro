@@ -36,6 +36,10 @@ public class IndexController {
 		return "login";
 	}
 	
+	@RequestMapping({"/logon"})
+	public String logon(){
+		return "manager";
+	}
 	@RequestMapping("downloadZip")
 	public String zip(){
 		return "downloadZip";

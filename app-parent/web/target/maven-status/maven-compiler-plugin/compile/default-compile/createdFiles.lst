@@ -1,10 +1,10 @@
 com\tcc\web\controller\IndexController.class
-com\tcc\web\controller\UserController.class
 com\tcc\web\entity\User.class
-com\tcc\web\utils\ApplicationContextProvider.class
 com\tcc\web\service\UserService.class
 com\tcc\web\utils\SpringContextUtil.class
 com\tcc\web\Application.class
 com\tcc\web\mapper\UserMapper.class
-com\tcc\web\mapper\DictionaryMapper.class
 com\tcc\web\entity\Dictionary.class
+com\tcc\web\controller\UserController.class
+com\tcc\web\utils\ApplicationContextProvider.class
+com\tcc\web\mapper\DictionaryMapper.class

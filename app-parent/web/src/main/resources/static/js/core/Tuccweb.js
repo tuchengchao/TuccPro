@@ -4,14 +4,25 @@
 	tw.init = function() {
 		tw.UI.init();
 	}
-	
+	/**
+	 * UI组件
+	 */
 	tw.UI = function() {
 		var _UI = function() {};
 		_UI.width = $(window).width();
 		_UI.height = $(window).height();
+		/**
+		 * 初始化方法
+		 */
 		_UI.init = function(){
 			this.initToast();
 		}
+		/**
+		 * 打开模态窗
+		 * url
+		 * width
+		 * height
+		 */
 		_UI.modal = function(url,width,height) {
 			var loader = $("#modalloader");
 			if (loader.length == 0) {
@@ -43,6 +54,9 @@
 			"showMethod" : "fadeIn",// 显示时的动画方式
 			"hideMethod" : "fadeOut" // 消失时的动画方式
 		};
+		/**
+		 * 初始化toastr提示工具参数
+		 */
 		_UI.initToast = function() {
 			toastr.options = messageOpts;
 		}
