@@ -1,19 +1,21 @@
 package com.tcc.web.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
+import com.tcc.web.websocket.MsWebSocket;
+
 @Configuration
 public class DruidConfig {
-    private static final Log log = LogFactory.getLog(DruidConfig.class);
+	private final static Logger logger = LoggerFactory.getLogger(MsWebSocket.class);  
 
     @Value("${spring.datasource.url}")
     private String url;
@@ -58,7 +60,7 @@ public class DruidConfig {
     //    配置数据源
     @Bean(name = "basisDataSource", initMethod = "init", destroyMethod = "close")
     public DruidDataSource initDataSource() {
-        log.info("初始化DruidDataSource");
+    	logger.info("初始化DruidDataSource");
         DruidDataSource dds = new DruidDataSource();
         dds.setDriverClassName(driverClassName);
         dds.setUrl(url);

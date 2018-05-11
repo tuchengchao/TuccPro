@@ -1,10 +1,10 @@
 package com.tcc.web.config;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.entity.GlobalConfiguration;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import com.tcc.common.utils.StrUtils;
+import com.tcc.web.websocket.MsWebSocket;
 
 /**
  * MybatisPlus配置
@@ -28,7 +29,7 @@ import com.tcc.common.utils.StrUtils;
 @EnableTransactionManagement(order = 2)
 public class MybatisPlusConfig {
 
-    private static final Log log = LogFactory.getLog(MybatisPlusConfig.class);
+	private final static Logger logger = LoggerFactory.getLogger(MsWebSocket.class);  
     
     @Value("${mybatisPlus.basePackage}")String basePackage;
 
@@ -63,7 +64,7 @@ public class MybatisPlusConfig {
           @Value("${mybatisPlus.globalConfig.logicDeleteValue}") String logicDeleteValue, //逻辑删除配置
           @Value("${mybatisPlus.globalConfig.logicNotDeleteValue}") String logicNotDeleteValue //逻辑删除配置
 	) {
-		log.info("初始化GlobalConfiguration");
+		logger.info("初始化GlobalConfiguration");
 		GlobalConfiguration globalConfig = new GlobalConfiguration();
 		if (!StrUtils.isBlank(idType)) {
 			globalConfig.setIdType(idType); // 主键类型
@@ -101,7 +102,7 @@ public class MybatisPlusConfig {
                                                @Value("${mybatisPlus.mapperLocations}")String mapperLocations,
                                                @Value("${mybatisPlus.typeAliasesPackage}")String typeAliasesPackage,
                                                @Value("${mybatisPlus.configLocation}")String configLocation) throws Exception {
-        log.info("初始化SqlSessionFactory");
+		logger.info("初始化SqlSessionFactory");
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dataSource); //数据源
         sqlSessionFactory.setGlobalConfig(globalConfig); //全局配置
@@ -125,7 +126,7 @@ public class MybatisPlusConfig {
 	 */
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
-        log.info("初始化MapperScannerConfigurer");
+    	logger.info("初始化MapperScannerConfigurer");
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setBasePackage("com.tcc.web.mapper");
         return mapperScannerConfigurer;
@@ -138,7 +139,7 @@ public class MybatisPlusConfig {
      */
     @Bean(name = "transactionManager")
     public DataSourceTransactionManager transactionManager(@Qualifier(value = "basisDataSource")DruidDataSource dataSource) {
-        log.info("初始化DataSourceTransactionManager");
+    	logger.info("初始化DataSourceTransactionManager");
         DataSourceTransactionManager dstm = new DataSourceTransactionManager(dataSource);
         return dstm;
     }

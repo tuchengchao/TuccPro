@@ -24,5 +24,20 @@ public class StrUtils {
 		}
 		return str;
 	}
+	/**
+	 * 生成固定长度的某范围内的随机字符串
+	 * @param range
+	 * @param length
+	 * @return
+	 */
+	public static String random(String range, int length){
+		StringBuffer code = new StringBuffer();
+		int l = range.length();
+        for(int i = 0;i < length;i ++){
+            int index = (int)(Math.random() * l);
+            code.append(range.charAt(index));
+        }
+        return code.toString();
+	}
 	
 }

@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8"></meta>
 <title>Insert title here</title>
+<style type="text/css">
+
+</style>
 </head>
 <body>
 	<!-- 模态框（Modal） -->
@@ -25,7 +28,13 @@
 					  </div>
 					  <div class="form-group">
 					    <label for="password">密码</label>
-					    <input type="password" class="form-control" name="password" placeholder="请输密码"/>
+					    <input type="password" class="form-control" name="password" placeholder="请输入密码"/>
+					  </div>
+					  <div class="form-group" id="yzm-style1">
+					  	<label for="verification">验证码</label><br></br>
+					  	<input type="text" class="form-control" name="yzm" placeholder="请输入验证码" style="width:110px;display: inline;"/>
+					  	<img alt="yzm" name="yzmImg" onclick="refresh_yzm()"></img> 
+					  	<a onclick="javascript:refresh_yzm();" style="font-size: 5px;">看不清？</a>
 					  </div>
 					  <div style="text-align: center">
 					  	<button type="submit" class="btn btn-default">登录</button>
@@ -43,5 +52,6 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal -->
 	</div>
+	<script src="js/login.js"></script>
 </body>
 </html>
