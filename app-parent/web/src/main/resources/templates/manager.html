@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<script src="js/imp.js"></script>
+<link href="css/manager.css" rel="stylesheet" />
+<title>后台管理</title>
+</head>
+<body>
+	<div class="page-panel">
+		<div class="head-panel">
+			<span class="head-title">_(:з」∠)后台管理</span>
+		</div>
+		<div class="flex body-panel">
+			<div class="flex left-panel">
+				<div class="left-body">
+					<div class="menu-tree">
+						<div class="menu-tree-head">
+							MENU
+						</div>
+						<div class="treeview"></div>
+					</div>
+					<div class="menu-cut-off"></div>
+					<div class="menu-tab">
+						<div class="menu-tab-row">
+							<button class="btn">  
+						        <span class="glyphicon glyphicon-home"></span>&nbsp;MENU1  
+						    </button>
+						    <button class="btn">  
+						        <span class="glyphicon glyphicon-home"></span>&nbsp;MENU2 
+						    </button>
+						</div>
+						<div class="menu-tab-row">
+							<button class="btn">  
+						        <span class="glyphicon glyphicon-home"></span>&nbsp;MENU3  
+						    </button>
+						    <button class="btn">  
+						        <span class="glyphicon glyphicon-home"></span>&nbsp;MENU4 
+						    </button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-hidden left-panel-hidden semi-circle-right">&lt;</div>
+			<div class="flex center-panel">
+				<div class="label-bar">
+					<div class="label-tag tag-active"><span>主页</span></div>
+					<div class="label-tag"><span>标签1标签1标签1标签1</span><a class="tag-close">x</a></div>
+				</div>
+				<div class="page-container"></div>
+			</div>
+			<div class="flex right-panel hidden"></div>
+			<div class="panel-hidden right-panel-hidden semi-circle-left hidden">&gt;</div>
+		</div>
+		<div class="bottom-panel">
+			<div class="copy-right">
+				Power By Thymeleaf Design By Tucc<br></br> Copyright© 2018-9999 屠成超
+			</div>
+		</div>
+	</div>
+	<script src="js/manager.js"></script>
+	<script type="text/javascript">
+		$(function() {
+
+			var alternateData = [ {
+				text : 'Parent 1',
+				tags : [ '2' ],
+				nodes : [ {
+					text : 'Child 1',
+					tags : [ '3' ],
+					nodes : [ {
+						text : 'Grandchild 1',
+						tags : [ '6' ]
+					}, {
+						text : 'Grandchild 2',
+						tags : [ '3' ]
+					} ]
+				}, {
+					text : 'Child 2',
+					tags : [ '3' ]
+				} ]
+			}, {
+				text : 'Parent 2',
+				tags : [ '7' ]
+			}, {
+				text : 'Parent 3',
+				icon : 'glyphicon glyphicon-earphone',
+				href : '#demo',
+				tags : [ '11' ]
+			}, {
+				text : 'Parent 4',
+				icon : 'glyphicon glyphicon-cloud-download',
+				href : '/demo.html',
+				tags : [ '19' ],
+			}, {
+				text : 'Parent 5',
+				icon : 'glyphicon glyphicon-certificate',
+				href : 'http://www.tesco.com',
+				tags : [ 'available', '0' ]
+			} ];
+
+			$('.menu-tree .treeview').treeview({
+				color : "#808080",
+				expandIcon : 'glyphicon glyphicon-chevron-right',
+				collapseIcon : 'glyphicon glyphicon-chevron-down',
+				nodeIcon : "glyphicon glyphicon-user",
+				showTags : false,
+		        showBorder: false,
+		        enableLinks: true,
+		        selectedBackColor: "Gainsboro",
+				data : alternateData
+			});
+			$('.menu-tree .treeview').treeview('collapseAll', {
+				silent : true
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+.flex {
+	display: flex;
+}
+
+a:HOVER {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.page-panel {
+	height: 100%;
+	width: 100%;
+}
+
+.page-panel>div {
+	width: 100%;
+}
+
+.head-panel {
+	height: 100px;
+	filter: alpha(opacity = 100 finishopacity = 50 style = 1 startx = 0, starty = 0,
+		finishx = 0, finishy = 150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#EBEBEB,
+		endcolorstr=#C0C0C0, gradientType=0);
+	-ms-filter: alpha(opacity = 100 finishopacity = 50 style = 1 startx = 0, starty = 0,
+		finishx = 0, finishy = 150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#EBEBEB,
+		endcolorstr=#C0C0C0, gradientType=0); /*IE8*/
+	background: #EBEBEB; /* 一些不支持背景渐变的浏览器 */
+	background: -moz-linear-gradient(top, #EBEBEB, rgba(192, 192, 192, 0.5));
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#EBEBEB),
+		to(rgba(192, 192, 192, 192)));
+	background: -o-linear-gradient(top, #EBEBEB, rgba(192, 192, 192, 0.5));
+}
+
+.body-panel {
+	min-height: calc(100vh - 130px);
+}
+
+.body-panel>div {
+	min-height: calc(100vh - 130px);
+}
+
+.left-panel {
+	width: 250px;
+}
+
+.left-body {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	border: thin;
+	border-color: #808080;
+	border-right: 2px;
+	border-right-color: #808080;
+	border-style: solid;
+	border-left: none;
+	border-radius: 5px;
+}
+
+.left-body>.menu-tree {
+	width: 100%;
+	height: 84%;
+	overflow: scroll;
+	background-color: #e6e6e6;
+	/*隐藏滚动条，当IE下溢出，仍然可以滚动*/
+	-ms-overflow-style: none;
+	/*火狐下隐藏滚动条*/
+	overflow: -moz-scrollbars-none;
+}
+/* for Chrome */
+.left-body>.menu-tree::-webkit-scrollbar {
+	display: none;
+}
+
+.left-body>.menu-tab::-webkit-scrollbar {
+	display: none;
+}
+
+.left-body>.menu-tab {
+	width: 100%;
+	height: 14%;
+	padding: 5px 10px;
+	overflow: scroll;
+	/*隐藏滚动条，当IE下溢出，仍然可以滚动*/
+	-ms-overflow-style: none;
+	/*火狐下隐藏滚动条*/
+	overflow: -moz-scrollbars-none;
+}
+
+.panel-hidden {
+	position: fixed;
+	top: 50%;
+	min-height: 24px !important;
+	width: 12px;
+	line-height: 28px;
+	font-size: 13px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.panel-hidden:HOVER {
+	color: white;
+}
+
+.left-panel-hidden {
+	left: 250px;
+}
+
+.center-panel {
+	flex: 1;
+	border: thin;
+	border-style: solid;
+	border-color: gray;
+	border-left: none;
+	border-radius: 5px;
+	border-left: none;
+}
+
+.right-panel {
+	width: 300px;
+}
+
+.right-panel-hidden {
+	right: 300px;
+}
+
+.bottom-panel {
+	height: 30px;
+}
+
+.copy-right {
+	height: 30px;
+	font-size: 12px;
+	line-height: 14px;
+	text-align: center;
+}
+
+.menu-tree-head {
+	width: 100%;
+	height: 30px;
+	background: gray;
+	text-align: center;
+	font-size: x-large;
+	border-radius: 5px;
+}
+
+.semi-circle-left {
+	background-color: #c0c0c0;
+	border-radius: 12px 0 0 12px;
+}
+
+.semi-circle-right {
+	background-color: #c0c0c0;
+	border-radius: 0 12px 12px 0;
+}
+
+.treeview .list-group-item {
+	background-color: #e6e6e6;
+}
+
+.menu-cut-off {
+	padding: 2px 0;
+	height: 2%;
+	border: none;
+	height: 2%;
+	border: none;
+	border-top: 5px groove #c0c0c0;
+}
+
+.menu-tab-row .btn {
+	margin: 1px 5px;
+	padding: 5px;
+	position: relative;
+	outline: none;
+	position: relative;
+}
+
+.menu-tab-row {
+	padding: 2px 0;
+}
+
+.menu-tab-row .btn:HOVER {
+	background-color: #9a9a9a;
+}
+
+.menu-tab-row .btn:nth-child(1) {
+	width: 40%;
+}
+
+.menu-tab-row .btn:nth-child(2) {
+	width: 40%;
+}
+
+.menu-active {
+	background-color: #656769;
+}
+
+.label-bar {
+	width: 100%;
+	height: 50px;
+	background: Gainsboro;
+	border-radius: 5px 5px 0 0;
+}
+
+.label-tag {
+	float: left;
+	width: 148px;
+	height: 0;
+	margin-top: 15px;
+	border-width: 0 22px 35px 22px;
+	border-radius: 50px 50px 0 0;
+	border-style: none solid solid;
+	border-color: transparent transparent #c0c0c0;
+	text-align: left;
+	line-height: 40px;
+	cursor: pointer;
+}
+
+.tag-active {
+	border-color: transparent transparent white;
+}
+
+.label-tag span {
+	padding-left:10px;
+	font-size: 12px;
+	position: absolute;
+	width: 80px;
+	height: 35px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.tag-close:HOVER {
+	color: red;
+}
+
+.tag-close {
+	float: right;
+	text-decoration: none;
+}
+.head-title{
+	padding-left:20px;
+	font-size: xx-large;
+	color: black;
+	line-height: 100px;
+}
