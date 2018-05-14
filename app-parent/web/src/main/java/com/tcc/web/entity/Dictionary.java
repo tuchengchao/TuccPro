@@ -1,6 +1,7 @@
 package com.tcc.web.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -18,7 +19,10 @@ public class Dictionary extends Model<Dictionary>{
 	private String value;
 	private Integer sort;
 	private Integer pid;
-
+	private Integer state;
+	private Date createDt;
+	private Date updateDt;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -57,6 +61,30 @@ public class Dictionary extends Model<Dictionary>{
 
 	public void setPid(Integer pid) {
 		this.pid = pid;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public Date getCreateDt() {
+		return createDt;
+	}
+
+	public void setCreateDt(Date createDt) {
+		this.createDt = createDt;
+	}
+
+	public Date getUpdateDt() {
+		return updateDt;
+	}
+
+	public void setUpdateDt(Date updateDt) {
+		this.updateDt = updateDt;
 	}
 
 	public static long getSerialversionuid() {

@@ -3,6 +3,12 @@
 	<name>web</name>
 	<comment></comment>
 	<projects>
+		<project>app-parent</project>
+		<project>common</project>
+		<project>dingtalk</project>
+		<project>lucene</project>
+		<project>RemoteSystemsTempFiles</project>
+		<project>voice</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -24,7 +24,7 @@ public class UserController {
 	@RequestMapping("/main")
 	public Object main(ModelMap map, Integer pageNo, Integer pageSize) {
 		Page<User> page = new Page<User>(1, 10);
-		page = userService.selectUserPage(page, "NORMAL");
+		page = userService.selectPage(page);
 		map.put("pageData", page);
 		return "user/main";
 	}

@@ -19,7 +19,6 @@ import com.baomidou.mybatisplus.entity.GlobalConfiguration;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import com.tcc.common.utils.StrUtils;
-import com.tcc.web.websocket.MsWebSocket;
 
 /**
  * MybatisPlus配置
@@ -29,7 +28,7 @@ import com.tcc.web.websocket.MsWebSocket;
 @EnableTransactionManagement(order = 2)
 public class MybatisPlusConfig {
 
-	private final static Logger logger = LoggerFactory.getLogger(MsWebSocket.class);  
+	private final static Logger logger = LoggerFactory.getLogger(MybatisPlusConfig.class);  
     
     @Value("${mybatisPlus.basePackage}")String basePackage;
 

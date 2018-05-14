@@ -20,9 +20,10 @@ public class User extends Model<User> {
 	private String name;
 	private Integer sex;
 	private Integer age;
-	private Date creatDt;
 	private Integer state;
-
+	private Date createDt;
+	private Date updateDt;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -71,12 +72,12 @@ public class User extends Model<User> {
 		this.age = age;
 	}
 
-	public Date getCreatDt() {
-		return creatDt;
+	public Date getCreateDt() {
+		return createDt;
 	}
 
-	public void setCreatDt(Date creatDt) {
-		this.creatDt = creatDt;
+	public void setCreateDt(Date createDt) {
+		this.createDt = createDt;
 	}
 
 	public Integer getState() {
@@ -85,6 +86,14 @@ public class User extends Model<User> {
 
 	public void setState(Integer state) {
 		this.state = state;
+	}
+
+	public Date getUpdateDt() {
+		return updateDt;
+	}
+
+	public void setUpdateDt(Date updateDt) {
+		this.updateDt = updateDt;
 	}
 
 	public static long getSerialversionuid() {

@@ -240,6 +240,7 @@ a:HOVER {
 }
 
 .tag-close {
+	margin-top: -3px;
 	float: right;
 	text-decoration: none;
 }

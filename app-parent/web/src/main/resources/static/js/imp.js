@@ -6,4 +6,6 @@ document.write('<link href="plugins/bootstrap/dist//css/bootstrap.min.css" rel="
 '<script src="plugins/toastr/toastr.min.js"></script>'+
 '<script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>'+
 '<script src="plugins/bootstrap/treeview/bootstrap-treeview.min.js"></script>'+
-'<script src="js/core/tw.web.js"></script>');
+'<script src="plugins/md5.js"></script>'+
+'<script src="js/core/tw.core.js"></script>'+
+'<script src="js/core/tw.websocket.js"></script>');

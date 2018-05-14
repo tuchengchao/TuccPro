@@ -64,6 +64,5 @@
 		<module>common</module>
 		<!-- <module>voice</module> -->
 		<module>web</module>
-		<module>redis</module>
 	</modules>
 </project>
