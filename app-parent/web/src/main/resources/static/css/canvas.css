@@ -1,0 +1,39 @@
+.canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.canvasBar {
+	position: absolute;
+	display: none;
+	z-index: 1;
+}
+
+.cutview-box {
+	position: absolute;
+	display:none;
+	z-index: 1;
+	padding: 5px;
+	background: url(/images/bg_b50.png) repeat;
+	border-radius: 5px;
+}
+
+.cutview {
+	margin: 12px 2px 2px 3px;
+}
+
+.close-btn {
+	display: block;
+	text-indent: -999em;
+	background: url(/images/closebtn.png) no-repeat;
+	width: 21px;
+	height: 21px;
+	position: absolute;
+	right: -8px;
+	top: -8px;
+}
+
+.close-btn:hover {
+	background-position: 0 -21px;
+}

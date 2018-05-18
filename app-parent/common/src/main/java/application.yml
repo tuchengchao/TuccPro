@@ -1,0 +1,12 @@
+test:
+  a: 123
+  b:
+    c: 345
+  e:
+    f:
+      g:
+        h: 567 
+        
+jwt:
+  base64Secret: Fo3Zjvl3ToLx20w9LS4hQQ==
+  expiresSecond: 172800000

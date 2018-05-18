@@ -7,7 +7,7 @@ import java.util.Base64;
 
 public class Md5Util {
 	/**
-	 * 用md5加密
+	 * b64-md5
 	 * 
 	 * @param str
 	 * @param salt
@@ -16,20 +16,49 @@ public class Md5Util {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static String b64Md5(String str, String salt) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		str = str + salt;
-		// 确定计算方法
-		MessageDigest md5 = MessageDigest.getInstance("MD5");
+		return b64Md5(str, salt, 1);
+	}
+	/**
+	 * b64-md5
+	 * @param str
+	 * @param salt
+	 * @param time
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	public static String b64Md5(String str, String salt, int time) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		str = salt + str;
 		Base64.Encoder encoder = Base64.getEncoder();
 		// 加密后的字符串
-		String newstr = encoder.encodeToString((md5.digest(str.getBytes("utf-8"))));
+		byte[] bytes = md5(str, time);
+		String newstr = encoder.encodeToString(bytes);
 		return newstr;
 	}
-
+	/**
+	 * hex-md5
+	 * @param str
+	 * @param salt
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
 	public static String hexMd5(String str, String salt) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		str = str + salt;
+		return hexMd5(str, salt, 1);
+	}
+	/**
+	 * hex-md5
+	 * @param str
+	 * @param salt
+	 * @param time
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	public static String hexMd5(String str, String salt, int time) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		str = salt + str;
 		// 确定计算方法
-		MessageDigest md5 = MessageDigest.getInstance("MD5");
-		byte[] bytes = md5.digest(str.getBytes("utf-8"));
+		byte[] bytes = md5(str, time);
 		StringBuilder ret = new StringBuilder(bytes.length << 1);
 		for (int i = 0; i < bytes.length; i++) {
 			ret.append(Character.forDigit((bytes[i] >> 4) & 0xf, 16));
@@ -37,9 +66,28 @@ public class Md5Util {
 		}
 		return ret.toString();
 	}
-
+	/**
+	 * md5
+	 * @param str
+	 * @param time
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	public static byte[] md5(String str, int time) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+		MessageDigest md5 = MessageDigest.getInstance("MD5");
+		// 加密后的字符串
+		byte[] bytes = str.getBytes("utf-8");
+		for(int i = 0;i < time;i ++){
+			bytes = md5.digest(bytes);
+		}
+		return bytes;
+	}
+	
 	public static void main(String[] args) {
 		try {
+			System.out.println(b64Md5("king", "tcc", 2));
+			System.out.println(hexMd5("123456", "tcc", 2));
 			System.out.println(hexMd5("1234", "verfication"));
 			System.out.println(b64Md5("1234", "verfication"));
 		} catch (NoSuchAlgorithmException e) {

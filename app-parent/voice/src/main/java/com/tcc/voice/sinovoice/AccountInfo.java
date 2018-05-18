@@ -48,9 +48,10 @@ public class AccountInfo {
 	public boolean loadAccountInfo() {
 		boolean isSuccess = true;
 		String accountInfoPath = sPath + "\\testdata\\AccountInfo.txt";
+		BufferedReader br = null;
 		try {
 			FileReader filereader = new FileReader(accountInfoPath);
-			BufferedReader br = new BufferedReader(filereader);
+			br = new BufferedReader(filereader);
 			String temp = null;
 			String[] sInfo = new String[2];
 			temp = br.readLine();
@@ -72,6 +73,16 @@ public class AccountInfo {
 		} catch (IOException e) {
 			e.printStackTrace();
 			isSuccess = false;
+		}
+		finally {
+			try {
+				if(br != null){
+					br.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return isSuccess;
 	}

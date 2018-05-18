@@ -260,9 +260,9 @@ public class SinovoiceAsrHelper {
 			return null;
 		
 		int size = (int)fileSrc.length();
-		
+		FileInputStream rd = null;
 		try {
-			FileInputStream rd = new FileInputStream(fileSrc);
+			rd = new FileInputStream(fileSrc);
 			byte[] data = new byte[size];
 			
 			rd.read(data);
@@ -272,6 +272,16 @@ public class SinovoiceAsrHelper {
 			e.printStackTrace();
 			System.out.print(e.getMessage());
 			return null;
+		}
+		finally{
+			try {
+				if(rd != null){
+					rd.close();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	

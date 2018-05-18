@@ -2,7 +2,7 @@ package com.tcc.web.controller;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -38,19 +38,24 @@ public class LoginController {
 	private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Resource
-    private RedisTemplate<String, String> verificationRedis;
+    private RedisTemplate<String, Object> redisTemplate;
 	
 	@PostMapping("/login")
 	@ResponseBody
 	public String login(User user, String uri, String verification) throws IOException, EncodeException, NoSuchAlgorithmException {
-		String result = "";
-		ValueOperations<String, String> voper = verificationRedis.opsForValue();
-		String key = "verification" + uri;
-		if(voper.get(key) == null){
+		String result = "登录成功";
+		ValueOperations<String, Object> voper = redisTemplate.opsForValue();
+		@SuppressWarnings("unchecked")
+		HashMap<String, Object> map = (HashMap<String, Object>)voper.get(uri);
+		if(map == null){
+			result = "无效的用户标识";
+			MsWebSocket.send(uri, MsMsg.msg(result, "login", "recreateUri"));
+		}
+		else if(map.get("verification") == null){
 			result = "验证码过期";
 			MsWebSocket.send(uri, MsMsg.msg(result, "login", "reflashVerification"));
 		}
-		else if(!Md5Util.b64Md5(verification, "verification").equals(voper.get(key))){
+		else if(!Md5Util.b64Md5(verification.toLowerCase(), "verification").equals(map.get("verification"))){
 			result = "验证码不正确";
 			MsWebSocket.send(uri, MsMsg.msg(result, "login"));
 		}
@@ -73,7 +78,7 @@ public class LoginController {
 				result = "您的账户已被禁用，请联系管理员";
 			}
 			finally {
-				MsWebSocket.send(uri, MsMsg.msg(result, "login"));
+				MsWebSocket.send(uri, MsMsg.msg(result, "login", "logon"));
 			}
 		}
 		return result;
@@ -96,15 +101,21 @@ public class LoginController {
 	
 	@RequestMapping("/verification")
 	public void verification(@RequestParam(value="uri", required = true)String uri, HttpServletResponse response) throws IOException, EncodeException, NoSuchAlgorithmException {
-		ValueOperations<String, String> voper = verificationRedis.opsForValue();
-		response.setContentType("image/jpeg");
-		com.tcc.common.utils.VerificationUtil.Result result = VerificationUtil.create();
-		String key = "verification"  + uri;
-		String encryptionCode = Md5Util.b64Md5(result.getCode().toLowerCase(), "verification");
-		voper.set(key, encryptionCode);
-		verificationRedis.expire(key, 3600, TimeUnit.SECONDS);
-		logger.info("generate verification {} for {}, encryptionCode is {}",result.getCode(), uri, encryptionCode);
-		MsWebSocket.send(uri, MsMsg.msg(encryptionCode, "verification"));
-		ImageIO.write(result.getImage(), "JPEG", response.getOutputStream());
+		ValueOperations<String, Object> voper = redisTemplate.opsForValue();
+		@SuppressWarnings("unchecked")
+		HashMap<String, Object> map = (HashMap<String, Object>)voper.get(uri);
+		if(map == null){
+			MsWebSocket.send(uri, MsMsg.msg("无效的用户标识", "verification","recreateUri"));
+		}
+		else{
+			response.setContentType("image/jpeg");
+			com.tcc.common.utils.VerificationUtil.Result result = VerificationUtil.create();
+			String encryptionCode = Md5Util.b64Md5(result.getCode().toLowerCase(), "verification");
+			logger.info("generate verification {} for {}, encryptionCode is {}",result.getCode(), uri, encryptionCode);
+			map.put("verification", encryptionCode);
+			voper.set(uri, map);
+			MsWebSocket.send(uri, MsMsg.msg(encryptionCode, "verification"));
+			ImageIO.write(result.getImage(), "JPEG", response.getOutputStream());
+		}
 	}
 }

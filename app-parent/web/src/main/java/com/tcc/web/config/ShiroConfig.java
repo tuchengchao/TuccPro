@@ -37,7 +37,9 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/logout", "logout");
 		// 配置不会被拦截的链接 顺序判断
 		
+		filterChainDefinitionMap.put("/public/**", "anon");
 		filterChainDefinitionMap.put("/css/**", "anon");
+		filterChainDefinitionMap.put("/images/**", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
 		filterChainDefinitionMap.put("/plugins/**", "anon");
 		

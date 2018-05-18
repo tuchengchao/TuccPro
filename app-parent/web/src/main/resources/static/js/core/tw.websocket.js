@@ -5,17 +5,19 @@
     // Set this to dump debug message from Flash to console.log:
     WEB_SOCKET_DEBUG = false;
 
-    // 默认服务配置
-    // 注册并初始化消息对象
     var tw = window.tw;
     if(!window.tw){
     	tw = window.tw = function(){};
     }
+    /**
+     * websocket
+     */
     tw.ws = function(){
     	this.socket = null;
     	this.isConnected = false;
     	this.uri = UUID.generate().replace(/-/g,'');
     	this.cfg = {addr: window.location.hostname, port: window.location.port, context: 'msWebSocket'};
+    	this.params = "{}";
     	/**
     	 * 连接websocket
     	 * @parm params json格式参数
@@ -25,12 +27,12 @@
     		if(!cfg){
     			cfg = this.cfg;
     		}
+    		this.cfg = cfg;
     		if(!params){
-    			params = "{}";
+    			params = this.params;
     		}
-    		else{
-    			params = JSON.stringify(params);
-    		}
+    		this.params = params;
+    		
     		var protocol = window.location.protocol == 'http:' ? "ws://" : "wss://";
     		var url = protocol + cfg.addr + ":" + cfg.port + "/" + cfg.context + "/" + this.uri + "/" + params;
     		this.socket = new WebSocket(url);
@@ -56,8 +58,17 @@
     	this.close = function(){
     		if(this.socket && this.isConnected){
     			this.socket.close();
+    			this.socket = null;
 			}
     	};
+    	/**
+    	 * 重新创建websocket连接
+    	 */
+    	this.recreate = function(){
+    		this.uri = UUID.generate().replace(/-/g,'');
+    		this.close();
+    		this.connect();
+    	}
     	/**
     	 * 接收信息
     	 */
@@ -71,7 +82,18 @@
 	    		default:
 	    			break;
     		};
+			switch (data.operation) {
+				case "logon":
+					logon();
+					setTimeout(function(){
+						window.location.href = "logon";
+					},2000);
+					break;
+				default:
+					break;
+			}
+			;
     	};
     	return this;
     }();
-})();
+}());

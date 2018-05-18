@@ -1,9 +1,11 @@
 package com.tcc.web.websocket;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 
+import javax.annotation.Resource;
 import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -17,7 +19,10 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+
+import com.tcc.web.utils.ApplicationContextProvider;
 
 @Component
 @ServerEndpoint(value = "/msWebSocket/{uri}/{params}",  encoders = { MsEncoder.class })
@@ -25,22 +30,35 @@ public class MsWebSocket {
 
 	private final static Logger logger = LoggerFactory.getLogger(MsWebSocket.class);
 	private static final HashMap<String, Session> sessions = new HashMap<>();
+	@Resource
+	private RedisTemplate<Serializable, Serializable> redisTemplate;
 	
 	@OnMessage
 	public void onMessage(@PathParam(value = "uri") String uri, String message, Session session) {
 		logger.info("recive message from uri:{} message:{}", uri , message);
 	}
 
+	@SuppressWarnings("unchecked")
 	@OnOpen
 	public void onOpen(@PathParam(value = "uri") String uri, Session session, EndpointConfig config) {
 		logger.info("open websocket connection for {}", uri);
 		sessions.put(uri, session);
+		if(redisTemplate == null){
+			redisTemplate =(RedisTemplate<Serializable, Serializable>)ApplicationContextProvider.getBean("redisTemplate");
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		redisTemplate.opsForValue().set(uri, map);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@OnClose
 	public void onClose(@PathParam(value="uri")String uri, Session session){
 		logger.info("close websocket connection for {}", uri);
 		sessions.remove(uri);
+		if(redisTemplate == null){
+			redisTemplate =(RedisTemplate<Serializable, Serializable>)ApplicationContextProvider.getBean("redisTemplate");
+		}
+		redisTemplate.delete(uri);
 	}
 	
 	@OnError
@@ -86,7 +104,7 @@ public class MsWebSocket {
 	 * @throws EncodeException
 	 */
 	public static final void massSend(MsMsg msg) throws IOException, EncodeException{
-		logger.info("send message to all");
+		logger.info("send message to all user");
 		for(String uri : sessions.keySet()){
 			send(uri, msg);
 		}

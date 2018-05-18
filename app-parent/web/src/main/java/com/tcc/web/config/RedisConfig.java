@@ -1,5 +1,7 @@
 package com.tcc.web.config;
 
+import java.io.Serializable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,9 +44,9 @@ public class RedisConfig extends CachingConfigurerSupport {
 	}
 
 	@Bean
-	public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+	public RedisTemplate<Serializable, Serializable> redisTemplate(RedisConnectionFactory connectionFactory) {
 		logger.info("初始化redisTemplate");
-		RedisTemplate<Object, Object> template = new RedisTemplate<>();;
+		RedisTemplate<Serializable, Serializable> template = new RedisTemplate<>();;
 		template.setConnectionFactory(connectionFactory);
 		 // 使用Jackson2JsonRedisSerialize 替换默认序列化
         @SuppressWarnings({ "rawtypes", "unchecked" })
