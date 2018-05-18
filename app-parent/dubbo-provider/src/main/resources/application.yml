@@ -1,0 +1,15 @@
+server:
+  port: 8081
+spring:
+  dubbo:
+    application:
+      name: demo-provider
+    base-package: com.tcc.dubbo.provider.service  # dubbo服务发布者实现类注解@service所在的包
+    registry:
+      address: 192.168.2.18                   # zookeeper注册中心的地址
+      port: 2181                           # zookeeper注册中心的端口
+    protocol:
+      name: dubbo
+      serialization: hessian2
+    provider:
+      retries: 0   

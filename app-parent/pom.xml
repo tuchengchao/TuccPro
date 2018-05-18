@@ -66,5 +66,6 @@
 		<module>web</module>
     <module>dubbo</module>
     <module>dubbo-api</module>
-	</modules>
+    <module>dubbo-provider</module>
+  </modules>
 </project>
