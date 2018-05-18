@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -21,6 +20,7 @@
 		<druid.version>1.1.2</druid.version>
 		<mybatis-plus.version>2.1.8</mybatis-plus.version>
 		<mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+		<spring-boot-starter-dubbo.version>1.0.9</spring-boot-starter-dubbo.version>
 	</properties>
 
 	<dependencyManagement>
@@ -64,5 +64,7 @@
 		<module>common</module>
 		<!-- <module>voice</module> -->
 		<module>web</module>
+    <module>dubbo</module>
+    <module>dubbo-api</module>
 	</modules>
 </project>

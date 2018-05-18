@@ -21,8 +21,10 @@ D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\service\UserServic
 D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\config\WebSocketConfig.java
 D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\websocket\MsEncoder.java
 D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\controller\LoginController.java
+D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\dubbo\DubboDemoConsumer.java
 D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\config\RedisConfig.java
 D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\controller\DictionaryController.java
+D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\controller\DubboDemoController.java
 D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\entity\Role.java
 D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\shiro\MyShiroRealm.java
 D:\Documents\TuccPro\app-parent\web\src\main\java\com\tcc\web\entity\User.java

@@ -132,6 +132,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+			<groupId>com.tcc</groupId>
+			<artifactId>dubbo-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- junit -->
 		<dependency>
 			<groupId>junit</groupId>

@@ -13,7 +13,7 @@ import com.tcc.web.utils.SpringContextUtil;
 
 @SpringBootApplication
 @EnableCaching
-public class Application 
+public class Application
 {
 	/**
      * 自定义异常页

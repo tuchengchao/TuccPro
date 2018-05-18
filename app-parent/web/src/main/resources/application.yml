@@ -34,6 +34,22 @@ spring:
       min-idle: 0
     # 连接超时时间（毫秒）
     timeout: 0
+################### dubbo ###################
+  dubbo: 
+    application:
+      name: demo-consumer
+    base-package: com.tcc.web.dubbo  # dubbo服务调用者所在的包  
+    registry:
+      address: 192.168.2.18                   # zookeeper注册中心的地址
+      port: 2181                           # zookeeper注册中心的端口
+    protocol:
+      name: dubbo
+      serialization: hessian2
+    consumer:
+      timeout: 1000 
+      check: true                          # 服务启动时检查被调用服务是否可用
+      retries: 2                           # 服务调用重试次数
+
 ################### druid ###################
 druid:
   # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
