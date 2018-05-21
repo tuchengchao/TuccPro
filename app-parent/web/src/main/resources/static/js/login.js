@@ -3,11 +3,19 @@ function refreshVerification() {
 }
 $(document).ready(function(){
 	refreshVerification();
-	$("button[name=login]").on("click", function(){
-		var username = $("input[name=username]"),
-		password = $("input[name=password]"),
-		verification = $("input[name=verification]"),
-		vcode = verification.val();
+	var username = $("input[name=username]"),
+	password = $("input[name=password]"),
+	verification = $("input[name=verification]")
+	login = $("button[name=login]");
+	username.on("keyup",function(event){
+		switch(event.keyCode) {
+		case 13:
+			login.click();
+			break;
+		}
+	});
+	login.on("click", function(){
+		var vcode = verification.val();
 		if(!username.val()){
 			username.focus();
 			return;
@@ -20,8 +28,8 @@ $(document).ready(function(){
 			verification.focus();
 			return;
 		}
-		vcode = vcode.toLowerCase();
-		if(b64_md5(vcode + "verification") != window.verification){
+		vcode = "verification" + vcode.toLowerCase();
+		if(b64_md5(vcode) != window.verification){
 			toastr.warning("验证码不正确");
 			verification.focus();
 			return;

@@ -114,6 +114,7 @@ public class LoginController {
 			logger.info("generate verification {} for {}, encryptionCode is {}",result.getCode(), uri, encryptionCode);
 			map.put("verification", encryptionCode);
 			voper.set(uri, map);
+			//redisTemplate.expire(uri, 30, TimeUnit.SECONDS);
 			MsWebSocket.send(uri, MsMsg.msg(encryptionCode, "verification"));
 			ImageIO.write(result.getImage(), "JPEG", response.getOutputStream());
 		}

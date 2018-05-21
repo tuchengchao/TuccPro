@@ -24,25 +24,27 @@
     	 * @parm cfg websocket配置 不传则为默认值
     	 */
     	this.connect = function(params, cfg){
-    		if(!cfg){
-    			cfg = this.cfg;
+    		if(!this.isConnected){
+	    		if(!cfg){
+	    			cfg = this.cfg;
+	    		}
+	    		this.cfg = cfg;
+	    		if(!params){
+	    			params = this.params;
+	    		}
+	    		this.params = params;
+	    		
+	    		var protocol = window.location.protocol == 'http:' ? "ws://" : "wss://";
+	    		var url = protocol + cfg.addr + ":" + cfg.port + "/" + cfg.context + "/" + this.uri + "/" + params;
+	    		this.socket = new WebSocket(url);
+	    		this.isConnected = true;
+	    		window.onbeforeunload = function(){
+	    			tw.ws.close();
+	    		}
+	    		this.socket.onmessage = function(event){
+	        		tw.ws.recive(event);
+	        	}
     		}
-    		this.cfg = cfg;
-    		if(!params){
-    			params = this.params;
-    		}
-    		this.params = params;
-    		
-    		var protocol = window.location.protocol == 'http:' ? "ws://" : "wss://";
-    		var url = protocol + cfg.addr + ":" + cfg.port + "/" + cfg.context + "/" + this.uri + "/" + params;
-    		this.socket = new WebSocket(url);
-    		this.isConnected = true;
-    		window.onbeforeunload = function(){
-    			tw.ws.close();
-    		}
-    		this.socket.onmessage = function(event){
-        		tw.ws.recive(event);
-        	}
     	};
     	/**
     	 * 发送信息

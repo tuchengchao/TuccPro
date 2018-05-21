@@ -127,4 +127,10 @@ mybatisPlus:
     lazyLoadingEnabled: true 
     # 开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
     multipleResultSetsEnabled: true 
-################### system ###################
+################### server ###################
+server:
+################### 压缩  ###################
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 10

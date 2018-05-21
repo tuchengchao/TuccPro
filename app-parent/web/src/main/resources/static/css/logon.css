@@ -51,7 +51,7 @@ a:HOVER {
 .left-body {
 	width: 100%;
 	height: 100%;
-	padding: 10px;
+	padding: 5px;
 	border: thin;
 	border-color: #808080;
 	border-right: 2px;
@@ -63,7 +63,7 @@ a:HOVER {
 
 .left-body>.menu-tree {
 	width: 100%;
-	height: 84%;
+	height: 85%;
 	overflow: scroll;
 	background-color: #e6e6e6;
 	/*隐藏滚动条，当IE下溢出，仍然可以滚动*/
@@ -82,13 +82,14 @@ a:HOVER {
 
 .left-body>.menu-tab {
 	width: 100%;
-	height: 14%;
+	height: 13%;
 	padding: 5px 10px;
 	overflow: scroll;
-	/*隐藏滚动条，当IE下溢出，仍然可以滚动*/
-	-ms-overflow-style: none;
+	background-color: #c0c0c0;
+	/*隐藏滚动条，当IE下溢出，仍然可以滚动*/ -ms-overflow-style : none;
 	/*火狐下隐藏滚动条*/
 	overflow: -moz-scrollbars-none;
+	-ms-overflow-style: none
 }
 
 .panel-hidden {
@@ -143,11 +144,16 @@ a:HOVER {
 	width: 100%;
 	height: 30px;
 	background: gray;
-	text-align: center;
 	font-size: x-large;
 	border-radius: 5px;
+	color: #fafafa;
+	letter-spacing: 0;
+	padding-left:10px;
 }
-
+.menu-tree-head span{
+	font-size: large;
+	margin-right: 5px;
+}
 .semi-circle-left {
 	background-color: #c0c0c0;
 	border-radius: 12px 0 0 12px;
@@ -201,7 +207,7 @@ a:HOVER {
 
 .label-bar {
 	width: 100%;
-	height: 50px;
+	height: 35px;
 	background: Gainsboro;
 	border-radius: 5px 5px 0 0;
 }
@@ -210,8 +216,8 @@ a:HOVER {
 	float: left;
 	width: 148px;
 	height: 0;
-	margin-top: 15px;
-	border-width: 0 22px 35px 22px;
+	margin-top: 5px;
+	border-width: 0 22px 30px 22px;
 	border-radius: 50px 50px 0 0;
 	border-style: none solid solid;
 	border-color: transparent transparent #c0c0c0;
@@ -225,11 +231,11 @@ a:HOVER {
 }
 
 .label-tag span {
-	padding-left:10px;
+	padding-left: 10px;
 	font-size: 12px;
 	position: absolute;
 	width: 80px;
-	height: 35px;
+	height: 30px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -244,9 +250,35 @@ a:HOVER {
 	float: right;
 	text-decoration: none;
 }
-.head-title{
-	padding-left:20px;
-	font-size: xx-large;
-	color: black;
+
+.head-title {
+	padding: 0 10px 0 20px;
+	font-size: 25px;
+	font-style: oblique;
 	line-height: 100px;
+	color: transparent;
+	background-color: black;
+	text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px,
+		rgba(255, 255, 255, 0.2) 1px 3px 3px;
+	-webkit-background-clip: text;
+}
+
+.head-logo {
+	width: 320px;
+	margin-left: -30px; overflow : hidden;
+	float: left;
+	overflow: hidden;
+}
+.logout{
+	float:right;
+	margin-top:30px;
+	margin-right:30px;
+	height:30px;
+	width:30px;
+	background:transparent url(/images/logout1.png); 
+	transform:scale(0.9);
+	cursor: pointer;
+}
+.logout:HOVER {
+	background:transparent url(/images/logout2.png);
 }

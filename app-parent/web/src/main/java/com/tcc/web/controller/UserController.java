@@ -28,7 +28,7 @@ public class UserController {
 		map.put("pageData", page);
 		return "user/main";
 	}
-
+	
 	@PostMapping("/login")
 	public ResponseEntity<User> login(User user) {
 		return ResponseEntity.status(HttpStatus.OK).body(user);
