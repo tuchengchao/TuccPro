@@ -12,16 +12,35 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JwtUtils {
-
+	
     private final static String base64Secret = (String)YmlUtils.getProperty("jwt.base64Secret");
-    private final static int expiresSecond = (int)YmlUtils.getProperty("jwt.expiresSecond");
+    public final static int expiresMicrosecond = (int)YmlUtils.getProperty("jwt.expiresMicrosecond");
     public static void main(String[] args) {
-		String token = JwtUtils.createJWT("tcc", "superadmin", "all");
+		String token = JwtUtils.createJWT("tcc", null, "superadmin", "all");
 		System.out.println(token);
-		Claims claims = parseJWT(token);
-		System.out.println(claims.get("user_name"));
-		System.out.println(DateUtils.format(claims.getExpiration()));
+		Claims claims = parseJWT("123423443234");
+		if(claims != null){
+			System.out.println(claims.get("user_name"));
+			System.out.println(DateUtils.format(claims.getExpiration()));
+		}
 	}
+    public static boolean isAutoLogin(Claims claims){
+    	if(claims != null){
+    		return claims.get("autoLogin") == null ? false : claims.get("autoLogin").equals(true);
+    	}
+    	return false;
+    }
+    /**
+     * 验证jwt是否过期
+     * @param jsonWebToken
+     * @return
+     */
+    public static boolean isExpirated(Claims claims){
+    	if(claims != null){
+    		return System.currentTimeMillis() > claims.getExpiration().getTime();
+    	}
+    	return true;
+    }
     /**
      * 解析JWT
      * @param jsonWebToken
@@ -40,11 +59,12 @@ public class JwtUtils {
     /**
      * 生成JWT
      * @param userInfo
+     * @param autoLogin
      * @param roles
      * @param privileges
      * @return
      */
-    public static String createJWT(String userInfo, String roles, String privileges) {
+    public static String createJWT(String userInfo, Boolean autoLogin, String roles, String privileges) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         long nowMillis = System.currentTimeMillis();
@@ -57,13 +77,14 @@ public class JwtUtils {
         //添加构成JWT的参数
         JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
                 .claim("userInfo", userInfo)
+                .claim("autoLogin", autoLogin)
                 .claim("roles", roles)
                 .claim("privileges", privileges)
                 .signWith(signatureAlgorithm, signingKey);
         //添加Token过期时间
-        if (expiresSecond >= 0) {
+        if (expiresMicrosecond >= 0) {
         	System.out.println(DateUtils.format(now));
-            long expMillis = nowMillis + expiresSecond;
+            long expMillis = nowMillis + expiresMicrosecond;
             Date exp = new Date(expMillis);
             builder.setExpiration(exp).setNotBefore(now);
             System.out.println(DateUtils.format(exp));
@@ -72,4 +93,5 @@ public class JwtUtils {
         //生成JWT
         return builder.compact();
     }
+    
 }

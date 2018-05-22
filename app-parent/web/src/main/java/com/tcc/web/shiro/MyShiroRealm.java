@@ -12,6 +12,8 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.tcc.web.entity.User;
 import com.tcc.web.service.UserService;
@@ -19,23 +21,27 @@ import com.tcc.web.store.Constants;
 
 public class MyShiroRealm extends AuthorizingRealm{
 	
+	private static final Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
+	
 	@Resource
 	private UserService userserive;
+	
 	/**
 	 * 认证用户信息
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();  
+        logger.info("doGetAuthenticationInfo for {}", username);
         User user = userserive.selectByUsername(username);
         if(user == null){
         	return null;
         }
         int state = user.getState();
-        if(state == Constants.STATE_INVAILD){//无效
+        if(state == Constants.STATE_DISABLED){//无效
         	throw new DisabledAccountException();
         }
-        else if(state == Constants.STATE_LOCK){//锁住
+        else if(state == Constants.STATE_LOCKED){//锁住
         	throw new LockedAccountException();
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(  
@@ -51,6 +57,8 @@ public class MyShiroRealm extends AuthorizingRealm{
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		String username = (String)principals.getPrimaryPrincipal();
+        logger.info("doGetAuthenticationInfo for {}", username);
 		return null;
 	}
 }

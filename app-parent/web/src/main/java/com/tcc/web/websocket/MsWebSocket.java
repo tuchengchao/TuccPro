@@ -23,6 +23,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import com.tcc.web.utils.ApplicationContextProvider;
+import com.tcc.web.websocket.bean.MsMsg;
+import com.tcc.web.websocket.encoder.MsEncoder;
 
 @Component
 @ServerEndpoint(value = "/msWebSocket/{uri}/{params}",  encoders = { MsEncoder.class })

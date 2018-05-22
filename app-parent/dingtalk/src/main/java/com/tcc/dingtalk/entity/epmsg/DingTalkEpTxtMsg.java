@@ -25,8 +25,4 @@ public class DingTalkEpTxtMsg extends DingTalkBaseEpMsg{
 		return text.get("content");
 	}
 	
-	public String toJson(){
-		return new Gson().toJson(this);
-	}
-	
 }

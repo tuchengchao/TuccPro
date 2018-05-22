@@ -31,6 +31,7 @@ public class YmlUtils {
 	public static Map load(String yml, String name){
 		try {
             URL url = YmlUtils.class.getClassLoader().getResource(yml);
+            
             if (url != null) {
 				Map map = (Map)Yaml.load(new FileInputStream(url.getFile()));
 				if(isStore){

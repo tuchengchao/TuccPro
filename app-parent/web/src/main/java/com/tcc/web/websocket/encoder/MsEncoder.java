@@ -1,10 +1,11 @@
-package com.tcc.web.websocket;
+package com.tcc.web.websocket.encoder;
 
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
 import com.google.gson.GsonBuilder;
+import com.tcc.web.websocket.bean.MsMsg;
 
 public class MsEncoder implements Encoder.Text<MsMsg>{
 	@Override

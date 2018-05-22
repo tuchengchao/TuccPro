@@ -85,14 +85,8 @@
 	    			break;
     		};
 			switch (data.operation) {
-				case "logon":
-					logon();
-					setTimeout(function(){
-						window.location.href = "logon";
-					},2000);
-					break;
 				default:
-					break;
+	    			break;
 			}
 			;
     	};

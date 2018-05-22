@@ -34,7 +34,12 @@
 					  	<label for="verification">验证码</label><br></br>
 					  	<input type="text" class="form-control" name="verification" placeholder="请输入验证码" style="width:110px;display: inline;"/>
 					  	<img alt="verification" name="verificationImg" onclick="refreshVerification()"></img> 
-					  	<a onclick="javascript:refreshVerification();" style="font-size: 5px;">看不清？</a>
+					  	<a onclick="javascript:refreshVerification();" style="font-size: 12px;">看不清？</a>
+					  </div>
+					  <div class="form-group">
+					  	<label for="autoLogin">下次自动登录</label>
+					  	<input type="checkbox" name="autoLogin"/>
+					  	<a style="float: right;font-size:12px;">忘记密码?</a>
 					  </div>
 					  <div style="text-align: center">
 					  	<button type="button" class="btn btn-default" name="login">登录</button>

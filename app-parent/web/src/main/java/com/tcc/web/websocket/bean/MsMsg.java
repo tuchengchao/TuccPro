@@ -1,6 +1,7 @@
-package com.tcc.web.websocket;
+package com.tcc.web.websocket.bean;
 
 import com.google.gson.GsonBuilder;
+import com.tcc.web.websocket.enums.MsType;
 
 public class MsMsg {
 	
@@ -35,7 +36,7 @@ public class MsMsg {
 	}
 	private MsMsg(){};
 	/**
-	 * 生成
+	 * 消息
 	 * @param msg
 	 * @param type
 	 * @return
@@ -53,24 +54,13 @@ public class MsMsg {
 		return _msg;
 	}
 	/**
-	 * 生成
-	 * @param msg
-	 * @param category
+	 * 操作
 	 * @param operation
-	 * @param type
 	 * @return
 	 */
-	public static MsMsg msg(Object msg, String category, String operation, MsType ...type){
+	public static MsMsg operation(String operation){
 		MsMsg _msg = new MsMsg();
-		_msg.msg = msg;
-		_msg.category = category;
-		_msg.setOperation(operation);
- 		if(type.length > 0){
- 			_msg.type = type[0];
- 		}
- 		else{
- 			_msg.type = MsType.TEXT;
- 		}
+		_msg.operation = operation;
 		return _msg;
 	}
 	public String toJson(){

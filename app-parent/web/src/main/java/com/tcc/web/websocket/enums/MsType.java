@@ -1,4 +1,4 @@
-package com.tcc.web.websocket;
+package com.tcc.web.websocket.enums;
 
 public enum MsType {
 	TEXT,PING,PONG,BINARY,OBJECT
