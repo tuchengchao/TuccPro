@@ -4,13 +4,14 @@
     	tw = window.tw = function(){};
     }
     tw.cv = function(){
+    	var _cv = function(){};
     	/**
     	 * btn 触发截图的按钮对象
     	 * img 回显截图的img, 没有的话弹出一层显示
     	 * beforecall 点击前事件(最好把overflow设置成hidden，否则截取时会显示scroll隐藏的内容)
     	 * callback 截完图后的事件
     	 */
-    	this.bind = function(btn, img, beforecall, callback){
+    	_cv.bind = function(btn, img, beforecall, callback){
     		var cv = {x:0,y:0,w:0,h:0};
 			function preview(img, sel) {
 				$('.cutview-temp').css({
@@ -136,8 +137,8 @@
 						$("body").append("<div class='canvasBar'><button class='btn'>确定</button></div>");
 						$(".canvasBar .btn").click(getCv);
 					},
-					width : 320,
-					height : 400
+					width : $("body").width(),
+					height : $("body").height()
 				});
     			
     			/**
@@ -146,6 +147,6 @@
 				$(document).keyup(listenEsc);
     		});
     	}
-    	return this;
+    	return _cv;
     }();
 })();

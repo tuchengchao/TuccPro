@@ -23,6 +23,7 @@ public class User extends Model<User> {
 	private Integer state;
 	private Date createDt;
 	private Date updateDt;
+	private Integer portrait;
 	
 	public Integer getId() {
 		return id;
@@ -94,6 +95,14 @@ public class User extends Model<User> {
 
 	public void setUpdateDt(Date updateDt) {
 		this.updateDt = updateDt;
+	}
+
+	public Integer getPortrait() {
+		return portrait;
+	}
+
+	public void setPortrait(Integer portrait) {
+		this.portrait = portrait;
 	}
 
 	public static long getSerialversionuid() {

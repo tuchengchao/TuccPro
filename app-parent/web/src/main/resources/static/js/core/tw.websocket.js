@@ -2,7 +2,7 @@
     // Set URL of your WebSocketMain.swf here:
     WEB_SOCKET_SWF_LOCATION = "/plugins/websocket/WebSocketMain.swf";
 
-    // Set this to dump debug message from Flash to console.log:
+    // Set _ws to dump debug message from Flash to console.log:
     WEB_SOCKET_DEBUG = false;
 
     var tw = window.tw;
@@ -13,35 +13,36 @@
      * websocket
      */
     tw.ws = function(){
-    	this.socket = null;
-    	this.isConnected = false;
-    	this.uri = UUID.generate().replace(/-/g,'');
-    	this.cfg = {addr: window.location.hostname, port: window.location.port, context: 'msWebSocket'};
-    	this.params = "{}";
+    	var _ws = function(){};
+    	_ws.socket = null;
+    	_ws.isConnected = false;
+    	_ws.uri = UUID.generate().replace(/-/g,'');
+    	_ws.cfg = {addr: window.location.hostname, port: window.location.port, context: 'msWebSocket'};
+    	_ws.params = "{}";
     	/**
     	 * 连接websocket
     	 * @parm params json格式参数
     	 * @parm cfg websocket配置 不传则为默认值
     	 */
-    	this.connect = function(params, cfg){
-    		if(!this.isConnected){
+    	_ws.connect = function(params, cfg){
+    		if(!_ws.isConnected){
 	    		if(!cfg){
-	    			cfg = this.cfg;
+	    			cfg = _ws.cfg;
 	    		}
-	    		this.cfg = cfg;
+	    		_ws.cfg = cfg;
 	    		if(!params){
-	    			params = this.params;
+	    			params = _ws.params;
 	    		}
-	    		this.params = params;
+	    		_ws.params = params;
 	    		
 	    		var protocol = window.location.protocol == 'http:' ? "ws://" : "wss://";
-	    		var url = protocol + cfg.addr + ":" + cfg.port + "/" + cfg.context + "/" + this.uri + "/" + params;
-	    		this.socket = new WebSocket(url);
-	    		this.isConnected = true;
+	    		var url = protocol + cfg.addr + ":" + cfg.port + "/" + cfg.context + "/" + _ws.uri + "/" + params;
+	    		_ws.socket = new WebSocket(url);
+	    		_ws.isConnected = true;
 	    		window.onbeforeunload = function(){
 	    			tw.ws.close();
 	    		}
-	    		this.socket.onmessage = function(event){
+	    		_ws.socket.onmessage = function(event){
 	        		tw.ws.recive(event);
 	        	}
     		}
@@ -49,32 +50,32 @@
     	/**
     	 * 发送信息
     	 */
-    	this.send = function(message){
-    		if(this.isConnected){
-    			this.socket.send(message);
+    	_ws.send = function(message){
+    		if(_ws.isConnected){
+    			_ws.socket.send(message);
     		}
     	};
     	/**
     	 * 关闭连接
     	 */
-    	this.close = function(){
-    		if(this.socket && this.isConnected){
-    			this.socket.close();
-    			this.socket = null;
+    	_ws.close = function(){
+    		if(_ws.socket && _ws.isConnected){
+    			_ws.socket.close();
+    			_ws.socket = null;
 			}
     	};
     	/**
     	 * 重新创建websocket连接
     	 */
-    	this.recreate = function(){
-    		this.uri = UUID.generate().replace(/-/g,'');
-    		this.close();
-    		this.connect();
+    	_ws.recreate = function(){
+    		_ws.uri = UUID.generate().replace(/-/g,'');
+    		_ws.close();
+    		_ws.connect();
     	}
     	/**
     	 * 接收信息
     	 */
-    	this.recive = function(event){
+    	_ws.recive = function(event){
     		var data = event.data;
     		data= JSON.parse(data);
     		switch(data.category){
@@ -90,6 +91,6 @@
 			}
 			;
     	};
-    	return this;
+    	return _ws;
     }();
 }());

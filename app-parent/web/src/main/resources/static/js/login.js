@@ -6,7 +6,7 @@ $(document).ready(function(){
 	var username = $("input[name=username]"),
 	password = $("input[name=password]"),
 	verification = $("input[name=verification]")
-	login = $("button[name=login]");
+	loginBtn = $("button[name=login]");
 	username.on("keyup",keyup2login);
 	password.on("keyup",keyup2login);
 	verification.on("keyup",keyup2login);
@@ -17,7 +17,7 @@ $(document).ready(function(){
 			break;
 		}
 	}
-	login.on("click", function(){
+	loginBtn.on("click", function(){
 		var vcode = verification.val();
 		if(!username.val()){
 			username.focus();
@@ -40,22 +40,6 @@ $(document).ready(function(){
 			}		
 		}
 		var data = $('form[name=loginForm]').serialize() + "&uri=" + tw.ws.uri;
-		login(data);
+		login(data, true);
 	});
 });
-function login(data){
-	$.post("login", data, function(data) {
-		switch(data.code){
-			case 1: 
-				toastr.success(data.msg);
-				logon();
-				break;
-			default:
-				toastr.warning(data.msg);
-				break;
-		}
-	});
-}
-function logon(){
-	
-}

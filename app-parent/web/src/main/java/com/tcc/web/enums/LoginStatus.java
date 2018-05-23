@@ -8,7 +8,8 @@ public enum LoginStatus {
 	UNKOWN_ACCOUNT(4,"用户名或密码不正确"),
 	ERROR_PASSWORD(5,"用户名或密码不正确"),
 	LOCKED_ACCOUNT(6,"您的账户已被锁定，请30分钟后重新尝试"),
-	DISABLED_ACCOUNT(7,"您的账户已被禁用，请联系管理员");
+	DISABLED_ACCOUNT(7,"您的账户已被禁用，请联系管理员"),
+	AUTO_FAILED(8,"无法自动登录");
 	
 	private int code;
 	private String msg;

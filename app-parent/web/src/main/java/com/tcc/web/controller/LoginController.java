@@ -16,7 +16,6 @@ import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +36,8 @@ import com.tcc.common.utils.VerificationUtil;
 import com.tcc.web.bean.LoginMsgBean;
 import com.tcc.web.entity.User;
 import com.tcc.web.enums.LoginStatus;
+import com.tcc.web.enums.LoginType;
+import com.tcc.web.shiro.MyUsernamePasswordToken;
 import com.tcc.web.store.Constants;
 import com.tcc.web.utils.CookieUtils;
 import com.tcc.web.websocket.MsWebSocket;
@@ -54,16 +55,30 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	@ResponseBody
-	public LoginMsgBean login(User user, String uri, String verification, String autoLogin, HttpServletRequest requset, HttpServletResponse response) throws IOException, EncodeException, NoSuchAlgorithmException {
-		Cookie cookie = CookieUtils.getCookie(requset, Constants.JWT_COOKIE_NAME);
-		if(cookie != null){
-			Claims claims = JwtUtils.parseJWT(cookie.getValue());
-			if(claims != null){
-				if(JwtUtils.isAutoLogin(claims) && !JwtUtils.isExpirated(claims)){
-					logger.info("{} login used authrization:{}", claims.get("userInfo"), cookie.getValue());
-					return LoginMsgBean.create(LoginStatus.SUCCESS);
+	public LoginMsgBean login(User user, String auto, String uri, String verification, String autoLogin, HttpServletRequest requset, HttpServletResponse response) throws IOException, EncodeException, NoSuchAlgorithmException {
+		if(!StrUtils.isBlank(auto)){
+			Cookie cookie = CookieUtils.getCookie(requset, Constants.JWT_COOKIE_NAME);
+			if(cookie != null){
+				String jsonWebToken = cookie.getValue();
+				Claims claims = JwtUtils.parseJWT(jsonWebToken);
+				if(claims != null){
+					if(JwtUtils.isAutoLogin(claims) && !JwtUtils.isExpirated(claims)){
+						String userInfo = (String) claims.get("userInfo");
+						Subject subject = SecurityUtils.getSubject();
+						MyUsernamePasswordToken token = new MyUsernamePasswordToken(userInfo, "", LoginType.AUTO);
+						try{
+							subject.login(token);
+							logger.info("{} login using authrization:{}", userInfo, cookie.getValue());
+							return LoginMsgBean.create(LoginStatus.SUCCESS);
+						}
+						catch(Exception e){
+							logger.error("catch exception while auto login, user:{} error:{}", userInfo, e.getMessage());
+							e.printStackTrace();
+						}
+					}
 				}
 			}
+			return LoginMsgBean.create(LoginStatus.AUTO_FAILED);
 		}
 		ValueOperations<String, Object> voper = redisTemplate.opsForValue();
 		@SuppressWarnings("unchecked")
@@ -78,11 +93,12 @@ public class LoginController {
 			return LoginMsgBean.create(LoginStatus.ERROR_VERFICATION);
 		}
 		else {
+			boolean remember = !StrUtils.isBlank(autoLogin);
 			Subject subject = SecurityUtils.getSubject();
-			UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+			MyUsernamePasswordToken token = new MyUsernamePasswordToken(user.getUsername(), user.getPassword(), LoginType.PASSWORD);
 			try {  
 		        subject.login(token);
-		        String jsonWebToken = JwtUtils.createJWT(user.getUsername(), !StrUtils.isBlank(autoLogin), "", "");
+		        String jsonWebToken = JwtUtils.createJWT(user.getUsername(), remember, "", "");
 		        logger.info("{} login get authrization:{}", user.getUsername(), jsonWebToken);
 		        CookieUtils.addJwtCookie(response, jsonWebToken);
 		        return LoginMsgBean.create(LoginStatus.SUCCESS);
@@ -103,6 +119,7 @@ public class LoginController {
 			}
 		}
 	}
+
 	@RequestMapping("/login")
 	public String login(HttpServletRequest requset, ModelMap map) {
 		Cookie cookie = CookieUtils.getCookie(requset, Constants.JWT_COOKIE_NAME);
@@ -140,5 +157,22 @@ public class LoginController {
 			MsWebSocket.send(uri, MsMsg.msg(encryptionCode, "verification"));
 		}
 		ImageIO.write(result.getImage(), "JPEG", response.getOutputStream());
+	}
+	
+	@RequestMapping("/logout")
+	@ResponseBody
+	public String logout(HttpServletRequest request, HttpServletResponse response){
+		Cookie cookie = CookieUtils.getCookie(request, Constants.JWT_COOKIE_NAME);
+		if(cookie != null){
+			String jsonWebToken = cookie.getValue();
+			Claims claims = JwtUtils.parseJWT(jsonWebToken);
+			if(claims != null){
+				logger.info("{} login drop authrization:{}", claims.get("userInfo"), cookie.getValue());
+				CookieUtils.removeJwtCookie(response);
+				Subject subject = SecurityUtils.getSubject();
+				subject.logout();
+			}
+		}
+		return "注销成功";
 	}
 }

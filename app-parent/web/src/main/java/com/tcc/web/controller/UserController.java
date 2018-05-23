@@ -28,11 +28,6 @@ public class UserController {
 		map.put("pageData", page);
 		return "user/main";
 	}
-	
-	@PostMapping("/login")
-	public ResponseEntity<User> login(User user) {
-		return ResponseEntity.status(HttpStatus.OK).body(user);
-	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<User> get(@PathVariable("id") String id) {
@@ -56,5 +51,5 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
-
+	
 }

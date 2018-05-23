@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.tcc.web.entity.User;
+import com.tcc.web.enums.LoginType;
 import com.tcc.web.service.UserService;
 import com.tcc.web.store.Constants;
 
@@ -60,6 +61,21 @@ public class MyShiroRealm extends AuthorizingRealm{
 		String username = (String)principals.getPrimaryPrincipal();
         logger.info("doGetAuthenticationInfo for {}", username);
 		return null;
+	}
+	
+	
+	@Override
+	protected void assertCredentialsMatch(AuthenticationToken token, AuthenticationInfo info)
+			throws AuthenticationException {
+		MyUsernamePasswordToken myToken = (MyUsernamePasswordToken) token;
+		logger.info("{} login with loginType {}", myToken.getUsername(), myToken.getLoginType());
+		LoginType loginType = myToken.getLoginType();
+		if(loginType.equals(LoginType.AUTO)){
+			//自动登录 免密码验证
+		}
+		else if(loginType.equals(LoginType.PASSWORD)){
+			super.assertCredentialsMatch(myToken, info);
+		}
 	}
 }
 

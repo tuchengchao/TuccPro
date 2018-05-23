@@ -8,6 +8,6 @@ public class Constants {
 	public static final Integer STATE_VALID = 1;
 	/** 锁定*/
 	public static final Integer STATE_LOCKED = 2;
-
+	/** jwt cookie名字*/
 	public static final String JWT_COOKIE_NAME = "Authorization";
 }

@@ -36,4 +36,8 @@ public class CookieUtils {
 		cookie.setVersion(version);
         response.addCookie(cookie);
 	}
+	
+	public static void removeJwtCookie(HttpServletResponse response){
+		addCookie(response, Constants.JWT_COOKIE_NAME, "", "", "", true, 0, "/", false, 1);
+	}
 }

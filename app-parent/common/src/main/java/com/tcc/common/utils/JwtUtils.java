@@ -18,9 +18,9 @@ public class JwtUtils {
     public static void main(String[] args) {
 		String token = JwtUtils.createJWT("tcc", null, "superadmin", "all");
 		System.out.println(token);
-		Claims claims = parseJWT("123423443234");
+		Claims claims = parseJWT("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6InRjYyIsImF1dG9Mb2dpbiI6ZmFsc2UsInJvbGVzIjoiIiwicHJpdmlsZWdlcyI6IiIsImV4cCI6MTUyNzE1MzE3MywibmJmIjoxNTI2OTgwMzczfQ.nlXFYlYVP15Hxgl_Dg0BnwhB-wr-mQ5VtP0YUzFkthg");
 		if(claims != null){
-			System.out.println(claims.get("user_name"));
+			System.out.println(claims.get("userInfo"));
 			System.out.println(DateUtils.format(claims.getExpiration()));
 		}
 	}
