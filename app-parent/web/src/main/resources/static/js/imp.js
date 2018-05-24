@@ -1,4 +1,5 @@
 document.write('<link href="plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>'+
+'<link href="css/common.css" rel="stylesheet"/>'+
 '<link href="plugins/toastr/toastr.min.css" rel="stylesheet"/>'+
 '<link href="css/canvas.css" rel="stylesheet"/>'+
 '<link href="plugins/jquery/imgareaselect/0.9.2/css/imgareaselect-default.css" rel="stylesheet"/>'+

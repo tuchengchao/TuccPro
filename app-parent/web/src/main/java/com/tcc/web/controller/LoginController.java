@@ -52,17 +52,37 @@ public class LoginController {
 	
 	@Resource
     private RedisTemplate<String, Object> redisTemplate;
-	
+	/**
+	 * 登录验证
+	 * @param user
+	 * @param auto
+	 * @param uri
+	 * @param verification
+	 * @param autoLogin
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws EncodeException
+	 * @throws NoSuchAlgorithmException
+	 */
 	@PostMapping("/login")
 	@ResponseBody
-	public LoginMsgBean login(User user, String auto, String uri, String verification, String autoLogin, HttpServletRequest requset, HttpServletResponse response) throws IOException, EncodeException, NoSuchAlgorithmException {
+	public LoginMsgBean login(User user, String auto, String uri, String verification, String autoLogin, HttpServletRequest request, HttpServletResponse response) throws IOException, EncodeException, NoSuchAlgorithmException {
+		request.getHeader("");
 		if(!StrUtils.isBlank(auto)){
-			Cookie cookie = CookieUtils.getCookie(requset, Constants.JWT_COOKIE_NAME);
+			Cookie cookie = CookieUtils.getCookie(request, Constants.JWT_NAME);
 			if(cookie != null){
 				String jsonWebToken = cookie.getValue();
 				Claims claims = JwtUtils.parseJWT(jsonWebToken);
 				if(claims != null){
-					if(JwtUtils.isAutoLogin(claims) && !JwtUtils.isExpirated(claims)){
+					if(!JwtUtils.isAutoLogin(claims)){
+						return LoginMsgBean.create(LoginStatus.NOT_AUTO_AUTHORIZE);
+					}
+					else if(JwtUtils.isExpirated(claims)){
+						return LoginMsgBean.create(LoginStatus.EXPIRATED_AUTHORIZATION);
+					}
+					else{
 						String userInfo = (String) claims.get("userInfo");
 						Subject subject = SecurityUtils.getSubject();
 						MyUsernamePasswordToken token = new MyUsernamePasswordToken(userInfo, "", LoginType.AUTO);
@@ -73,12 +93,13 @@ public class LoginController {
 						}
 						catch(Exception e){
 							logger.error("catch exception while auto login, user:{} error:{}", userInfo, e.getMessage());
-							e.printStackTrace();
+							return LoginMsgBean.create(LoginStatus.ERROR);
 						}
 					}
 				}
+				return LoginMsgBean.create(LoginStatus.DISABLED_ACCOUNT);
 			}
-			return LoginMsgBean.create(LoginStatus.AUTO_FAILED);
+			return LoginMsgBean.create(LoginStatus.NOT_AUTHORIZED);
 		}
 		ValueOperations<String, Object> voper = redisTemplate.opsForValue();
 		@SuppressWarnings("unchecked")
@@ -101,6 +122,7 @@ public class LoginController {
 		        String jsonWebToken = JwtUtils.createJWT(user.getUsername(), remember, "", "");
 		        logger.info("{} login get authrization:{}", user.getUsername(), jsonWebToken);
 		        CookieUtils.addJwtCookie(response, jsonWebToken);
+				response.addHeader(Constants.JWT_NAME, jsonWebToken);
 		        return LoginMsgBean.create(LoginStatus.SUCCESS);
 			}
 			catch(UnknownAccountException e){
@@ -119,10 +141,15 @@ public class LoginController {
 			}
 		}
 	}
-
+	/**
+	 * 登录页面 modal
+	 * @param requset
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping("/login")
 	public String login(HttpServletRequest requset, ModelMap map) {
-		Cookie cookie = CookieUtils.getCookie(requset, Constants.JWT_COOKIE_NAME);
+		Cookie cookie = CookieUtils.getCookie(requset, Constants.JWT_NAME);
 		if(cookie != null){
 			Claims claims = JwtUtils.parseJWT(cookie.getValue());
 			if(claims != null && claims.get("userInfo") != null){
@@ -131,17 +158,31 @@ public class LoginController {
 		}
 		return "login";
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping("logon")
 	public String logon(){
 		return "logon";
 	}
-	
+	/**
+	 * 注册页面
+	 * @return
+	 */
 	@RequestMapping("/register")
 	public String register() {
 		return "register";
 	}
-	
+	/**
+	 * 获取验证码
+	 * @param uri
+	 * @param response
+	 * @param frontVerification
+	 * @throws IOException
+	 * @throws EncodeException
+	 * @throws NoSuchAlgorithmException
+	 */
 	@RequestMapping("/verification")
 	public void verification(@RequestParam(value="uri", required = true)String uri, HttpServletResponse response,@Value("${frontVerification}")Boolean frontVerification) throws IOException, EncodeException, NoSuchAlgorithmException {
 		ValueOperations<String, Object> voper = redisTemplate.opsForValue();
@@ -158,11 +199,16 @@ public class LoginController {
 		}
 		ImageIO.write(result.getImage(), "JPEG", response.getOutputStream());
 	}
-	
+	/**
+	 * 登出
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/logout")
 	@ResponseBody
 	public String logout(HttpServletRequest request, HttpServletResponse response){
-		Cookie cookie = CookieUtils.getCookie(request, Constants.JWT_COOKIE_NAME);
+		Cookie cookie = CookieUtils.getCookie(request, Constants.JWT_NAME);
 		if(cookie != null){
 			String jsonWebToken = cookie.getValue();
 			Claims claims = JwtUtils.parseJWT(jsonWebToken);

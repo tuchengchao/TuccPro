@@ -7,14 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/error")
 public class ErrorController {
 
-	@RequestMapping("/404")
-	public String error404() {
-		return "error/404";
+	@RequestMapping("/401")
+	public String error401() {
+		return "error/401";
 	}
-
+	
 	@RequestMapping("/403")
 	public String error403() {
 		return "error/403";
+	}
+	
+	@RequestMapping("/404")
+	public String error404() {
+		return "error/404";
 	}
 
 	@RequestMapping("/500")

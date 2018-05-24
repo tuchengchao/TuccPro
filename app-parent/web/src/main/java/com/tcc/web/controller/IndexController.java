@@ -2,6 +2,8 @@ package com.tcc.web.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,11 +19,12 @@ public class IndexController {
 		return "Greetings from Spring Boot!";
 	}
 
-	@RequestMapping({ "/"})
-	public String index(ModelMap map,@Value("${frontVerification}")Boolean frontVerification) {
+	@RequestMapping("")
+	public String index(ModelMap map,@Value("${frontVerification}")Boolean frontVerification, HttpServletRequest request) {
 		map.addAttribute("words", "hello, it's me.");
 		map.addAttribute("today", new Date());
 		map.addAttribute("frontVerification", frontVerification);
+		map.addAttribute("ctx", request.getServletContext().getContextPath());
 		return "index";
 	}
 

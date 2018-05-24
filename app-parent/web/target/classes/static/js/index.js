@@ -12,13 +12,18 @@ $(document).ready(function() {
 	tw.cv.bind($("button[name=cutScreen]"),null,function(){alert(1)}, function(){alert(2)});
 	login("auto=true");
 });
-function logout(){
+function logout(real){
 	$(".login-register").show();
 	$(".cog-off").hide();
 	$(".login-register a")[0].href = "javascript:openLogin();";
 	$(".login-register a")[1].href = "javascript:openRegister();";
 	$(".cog-off .cog").off("click");
 	$(".cog-off .off").off("click");
+	if(real){
+		$.post("logout", "r=" + Math.random(), function(data) {
+			alert(data);
+		});
+	}
 }
 function login(data, showMsg){
 	$.post("login", data, function(data) {
@@ -47,7 +52,7 @@ function logon(){
 	});
 	$(".cog-off .off").off("click").on("click",function(){
 		tw.ui.confirm({message:"确认要注销吗？"},function(){
-			
+			logout(true);
 		});
 	});
 }

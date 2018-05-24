@@ -63,7 +63,9 @@ public class MyShiroRealm extends AuthorizingRealm{
 		return null;
 	}
 	
-	
+	/**
+	 * 令牌验证
+	 */
 	@Override
 	protected void assertCredentialsMatch(AuthenticationToken token, AuthenticationInfo info)
 			throws AuthenticationException {

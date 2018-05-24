@@ -2,8 +2,6 @@ package com.tcc.dingtalk.entity.epmsg;
 
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-
 public class DingTalkEpTxtMsg extends DingTalkBaseEpMsg{
 	private HashMap<String,String> text;
 	
