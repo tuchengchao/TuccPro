@@ -23,17 +23,7 @@ a:HOVER {
 
 .head-panel {
 	height: 100px;
-	filter: alpha(opacity = 100 finishopacity = 50 style = 1 startx = 0, starty = 0,
-		finishx = 0, finishy = 150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#EBEBEB,
-		endcolorstr=#C0C0C0, gradientType=0);
-	-ms-filter: alpha(opacity = 100 finishopacity = 50 style = 1 startx = 0, starty = 0,
-		finishx = 0, finishy = 150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#EBEBEB,
-		endcolorstr=#C0C0C0, gradientType=0); /*IE8*/
-	background: #EBEBEB; /* 一些不支持背景渐变的浏览器 */
-	background: -moz-linear-gradient(top, #EBEBEB, rgba(192, 192, 192, 0.5));
-	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#EBEBEB),
-		to(rgba(192, 192, 192, 192)));
-	background: -o-linear-gradient(top, #EBEBEB, rgba(192, 192, 192, 0.5));
+	background: #B0E0E6; /* 一些不支持背景渐变的浏览器 */
 }
 
 .body-panel {
@@ -42,6 +32,7 @@ a:HOVER {
 
 .body-panel>div {
 	min-height: calc(100vh - 130px);
+	background: #eef3ed;
 }
 
 .left-panel {
@@ -51,7 +42,7 @@ a:HOVER {
 .left-body {
 	width: 100%;
 	height: 100%;
-	padding: 5px;
+	padding: 1px 0px 1px 0;
 	border: thin;
 	border-color: #808080;
 	border-right: 2px;
@@ -59,13 +50,13 @@ a:HOVER {
 	border-style: solid;
 	border-left: none;
 	border-radius: 5px;
+	background-color: #F0FFFF;
 }
 
 .left-body>.menu-tree {
 	width: 100%;
 	height: 85%;
 	overflow: scroll;
-	background-color: #e6e6e6;
 	/*隐藏滚动条，当IE下溢出，仍然可以滚动*/
 	-ms-overflow-style: none;
 	/*火狐下隐藏滚动条*/
@@ -85,7 +76,6 @@ a:HOVER {
 	height: 13%;
 	padding: 5px 10px;
 	overflow: scroll;
-	background-color: #c0c0c0;
 	/*隐藏滚动条，当IE下溢出，仍然可以滚动*/ -ms-overflow-style : none;
 	/*火狐下隐藏滚动条*/
 	overflow: -moz-scrollbars-none;
@@ -96,10 +86,9 @@ a:HOVER {
 	position: fixed;
 	top: 50%;
 	min-height: 24px !important;
-	width: 12px;
+	width: 14px;
 	line-height: 28px;
-	font-size: 13px;
-	text-align: center;
+	font-size: 14px;
 	cursor: pointer;
 }
 
@@ -142,8 +131,7 @@ a:HOVER {
 
 .menu-tree-head {
 	width: 100%;
-	height: 30px;
-	background: gray;
+	background: #ADD8E6;
 	font-size: x-large;
 	border-radius: 5px;
 	color: #fafafa;
@@ -155,17 +143,17 @@ a:HOVER {
 	margin-right: 5px;
 }
 .semi-circle-left {
-	background-color: #c0c0c0;
+	background-color: #ADD8E6 !important;
 	border-radius: 12px 0 0 12px;
 }
 
 .semi-circle-right {
-	background-color: #c0c0c0;
+	background-color: #ADD8E6 !important;
 	border-radius: 0 12px 12px 0;
 }
 
 .treeview .list-group-item {
-	background-color: #e6e6e6;
+	background-color: #F0FFFF;
 }
 
 .menu-cut-off {
@@ -183,32 +171,31 @@ a:HOVER {
 	position: relative;
 	outline: none;
 	position: relative;
+	background-color: #d9edf7;
 }
 
 .menu-tab-row {
 	padding: 2px 0;
+	text-align: center;
 }
 
 .menu-tab-row .btn:HOVER {
-	background-color: #9a9a9a;
-}
-
-.menu-tab-row .btn:nth-child(1) {
-	width: 40%;
-}
-
-.menu-tab-row .btn:nth-child(2) {
-	width: 40%;
+	background-color: #CCCCFF;
 }
 
 .menu-active {
 	background-color: #656769;
 }
-
+.btn-one{
+	width: 80%;
+}
+.btn-two{
+	width: 40%;
+}
 .label-bar {
 	width: 100%;
-	height: 35px;
-	background: Gainsboro;
+	height: 40px;
+	background: #c6f3f3;
 	border-radius: 5px 5px 0 0;
 }
 
@@ -216,25 +203,25 @@ a:HOVER {
 	float: left;
 	width: 148px;
 	height: 0;
-	margin-top: 5px;
+	margin-top: 10px;
 	border-width: 0 22px 30px 22px;
 	border-radius: 50px 50px 0 0;
 	border-style: none solid solid;
-	border-color: transparent transparent #c0c0c0;
+	border-color: transparent transparent #c8e3f1;
 	text-align: left;
 	line-height: 40px;
 	cursor: pointer;
 }
 
 .tag-active {
-	border-color: transparent transparent white;
+	border-color: transparent transparent #eef3ed;;
 }
 
 .label-tag span {
 	padding-left: 10px;
 	font-size: 12px;
 	position: absolute;
-	width: 80px;
+	width: 90px;
 	height: 30px;
 	overflow: hidden;
 	white-space: nowrap;
@@ -253,13 +240,10 @@ a:HOVER {
 
 .head-title {
 	padding: 0 10px 0 20px;
-	font-size: 25px;
+	font-size: 30px;
 	font-style: oblique;
 	line-height: 100px;
-	color: transparent;
-	background-color: black;
-	text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px,
-		rgba(255, 255, 255, 0.2) 1px 3px 3px;
+	color: rgba(255, 255, 255, 0.8);
 	-webkit-background-clip: text;
 }
 
@@ -268,4 +252,18 @@ a:HOVER {
 	margin-left: -30px; overflow : hidden;
 	float: left;
 	overflow: hidden;
+}
+
+.triangle-topright {
+    width: 0;
+    height: 0;
+    border-top: 10px solid red;
+    border-left: 10px solid transparent; 
+    float: right;
+    margin-top: -10px;
+    cursor: pointer;
+}
+.more-menu{
+	width: 100%;
+	height: 10px;
 }

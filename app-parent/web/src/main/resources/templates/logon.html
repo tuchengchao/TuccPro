@@ -2,21 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8"></meta>
+<meta http-equiv="Pragma" content="no-cache"></meta>
+<meta http-equiv="Cache-Control" content="no-cache"></meta>
+<meta http-equiv="Expires" content="0"></meta>
 <script src="js/imp.js"></script>
 <link href="css/logon.css" rel="stylesheet" />
+<script src="js/logon.js"></script>
 <title>后台管理</title>
 </head>
 <body>
 	<div class="page-panel">
 		<div class="head-panel">
-			<div class="head-logo"><img src="images/logo.png"></img></div>
+			<div class="head-logo"></div>
 			<span class="head-title">后台管理系统</span>
-			<div class="right login-register">
+			<div class="right login-register" style="display:none">
     			<span><a>登录</a>/<a>注册</a></span>
     		</div>
-    		<div class="right cog-off">
-    			<div class="glyphicon glyphicon-cog pointer cog" style="margin-right:10px;" title="个人管理"></div>
-    			<div class="glyphicon glyphicon-off pointer off" title="确认注销？"></div>
+    		<div class="right cog-off" style="margin-right: 15px;">
+    			<div class="glyphicon glyphicon-cog pointer cog" style="margin-right:10px;" title="个人管理">
+    				<div class="cog-pull">
+    					<div class="cog-top">
+    						<div class="angle-top"></div>
+    					</div>
+    					<div class="cog-meue" onclick="">
+    						密码修改
+    					</div>
+    					<div class="cog-meue" onclick="toIndex();">
+    						返回首页
+    					</div>
+    				</div>
+    			</div>
+    			<div class="glyphicon glyphicon-off pointer off" style="" title="确认注销？"></div>
     		</div>
 		</div>
 		<div class="flex body-panel">
@@ -30,20 +46,20 @@
 						<div class="treeview"></div>
 					</div>
 					<div class="menu-cut-off"></div>
+					<div class="more-menu">
+						<div class="triangle-topright"></div>
+					</div>
 					<div class="menu-tab">
-						<div class="menu-tab-row hidden">
-							<button class="btn">  
+						<div class="menu-tab-row ">
+							<button class="btn btn-one">  
 						        <span class="glyphicon glyphicon-home"></span>&nbsp;MENU1  
 						    </button>
-						    <button class="btn">  
-						        <span class="glyphicon glyphicon-home"></span>&nbsp;MENU2 
-						    </button>
 						</div>
-						<div class="menu-tab-row hidden">
-							<button class="btn">  
+						<div class="menu-tab-row">
+							<button class="btn btn-two">  
 						        <span class="glyphicon glyphicon-home"></span>&nbsp;MENU3  
 						    </button>
-						    <button class="btn">  
+						    <button class="btn btn-two">  
 						        <span class="glyphicon glyphicon-home"></span>&nbsp;MENU4 
 						    </button>
 						</div>
@@ -56,10 +72,11 @@
 					<div class="label-tag tag-active"><span>主页</span></div>
 					<div class="label-tag"><span>标签1标签1标签1标签1</span><a class="tag-close">x</a></div>
 				</div>
-				<div class="page-container"></div>
+				<div class="page-container">
+				</div>
 			</div>
 			<div class="flex right-panel hidden"></div>
-			<div class="panel-hidden right-panel-hidden semi-circle-left hidden">&gt;</div>
+			<div class="panel-hidden right-panel-hidden semi-circle-left hidden">&nbsp;&gt;</div>
 		</div>
 		<div class="bottom-panel">
 			<div class="copy-right">
@@ -69,6 +86,7 @@
 	</div>
 	<script src="js/manager.js"></script>
 	<script type="text/javascript">
+		tw.cv.keyBind();
 		$(function() {
 
 			var alternateData = [ {
@@ -109,14 +127,14 @@
 			} ];
 
 			$('.menu-tree .treeview').treeview({
-				color : "#808080",
+				color : "#6699FF",
 				expandIcon : 'glyphicon glyphicon-chevron-right',
 				collapseIcon : 'glyphicon glyphicon-chevron-down',
 				nodeIcon : "glyphicon glyphicon-user",
 				showTags : false,
 		        showBorder: false,
 		        enableLinks: true,
-		        selectedBackColor: "Gainsboro",
+		        selectedBackColor: "#99CCFF",
 				data : alternateData
 			});
 			$('.menu-tree .treeview').treeview('collapseAll', {

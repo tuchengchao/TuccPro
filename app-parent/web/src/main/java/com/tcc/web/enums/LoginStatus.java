@@ -2,7 +2,7 @@ package com.tcc.web.enums;
 
 public enum LoginStatus {
 	INVALID_URI(0, "无效的用户标识"),
-	SUCCESS(1,"登录成功"),
+	SUCCESS(1, "登录成功"),
 	EXPIRE_VERFICATION(2, "验证码过期"),
 	ERROR_VERFICATION(3, "验证码错误"),
 	UNKOWN_ACCOUNT(4, "用户名或密码不正确"),

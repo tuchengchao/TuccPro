@@ -1,5 +1,5 @@
 function openLogin() {
-	tw.ui.modal({url:"login", width:400, height:300});
+	tw.ui.modal({url:tw.ctx + "login", width:400, height:300});
 }
 function openRegister() {
 	tw.ui.confirm({message:"确认要注册？"});
@@ -20,13 +20,15 @@ function logout(real){
 	$(".cog-off .cog").off("click");
 	$(".cog-off .off").off("click");
 	if(real){
-		$.post("logout", "r=" + Math.random(), function(data) {
-			alert(data);
+		$.post(tw.ctx + "logout", "r=" + Math.random(), function(data) {
+			tw.ui.alert({message:data});
 		});
 	}
 }
 function login(data, showMsg){
+	tw.ui.loading();
 	$.post("login", data, function(data) {
+		tw.ui.ready();
 		switch(data.code){
 			case 1: 
 				if(showMsg){
@@ -43,12 +45,14 @@ function login(data, showMsg){
 	});
 }
 function logon(){
+	$("#modalloader").find(".modal").modal('hide');
 	$(".login-register a")[0].href = "#";
 	$(".login-register a")[1].href = "#";
 	$(".cog-off").show();
+	$(".cog-pull").hide();
 	$(".login-register").hide();
 	$(".cog-off .cog").off("click").on("click",function(){
-		
+		$(".cog-pull").toggle();
 	});
 	$(".cog-off .off").off("click").on("click",function(){
 		tw.ui.confirm({message:"确认要注销吗？"},function(){

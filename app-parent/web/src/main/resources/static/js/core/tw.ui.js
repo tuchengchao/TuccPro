@@ -1,34 +1,32 @@
 (function($, window, undefined) {
-	var tw = function() {
-	};
-	tw.init = function() {
-		tw.ui.init();
+	var tw = window.tw;
+	if (!window.tw) {
+		tw = window.tw = function() {
+		};
 	}
 	/**
 	 * UI组件
 	 */
-	tw.ui = function() {
-		var _ui = function(){};
+	var ui = tw.ui = function() {
+		var _ui = function() {
+		};
 		_ui.width = $(window).width();
 		_ui.height = $(window).height();
 		/**
 		 * 初始化方法
 		 */
-		_ui.init = function(){
+		_ui.init = function() {
 			_ui.initToast();
 		}
 		/**
-		 * 打开模态窗
-		 * url
-		 * width
-		 * height
+		 * 打开模态窗 url width height
 		 */
 		_ui.modal = function(options) {
 			options = $.extend({}, {
-                url:"login",
-                width: 200,
-                height: 200
-            }, options || {});
+				url : "",
+				width : 200,
+				height : 200
+			}, options || {});
 			var loader = $("#modalloader");
 			if (loader.length == 0) {
 				$(document.body).append("<div id=\"modalloader\"></div>");
@@ -36,104 +34,104 @@
 				loader.empty();
 			}
 			loader = $("#modalloader");
-			loader.load(options.url);
-			setTimeout(function() {
-				var dialog = $("#modalloader .modal-dialog");
-				dialog.css({"height":options.height,
-					"width":options.width,
-					"top": options.height < _ui.height ? _ui.height / 2 - options.height / 2 : "auto"
-				});
-				loader.find(".modal").modal('show');
-			}, 100);
+			tw.ui.loading();
+			$("#modalloader").load(
+					options.url,
+					function() {
+						var dialog = $("#modalloader .modal-dialog");
+						dialog.css({
+							"height" : options.height,
+							"width" : options.width,
+							"top" : options.height < _ui.height ? _ui.height
+									/ 2 - options.height / 2 : "auto"
+						});
+						$("#modalloader").find(".modal").modal('show');
+						tw.ui.ready();
+					});
 		};
-		var alertHtml = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
-	        '<div class="modal-dialog modal-sm">' +
-	            '<div class="modal-content">' +
-	                '<div class="modal-header">' +
-	                    '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
-	                    '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
-	                '</div>' +
-	                '<div class="modal-body">' +
-	                	'<p>[Message]</p>' +
-	                '</div>' +
-	                '<div class="modal-footer">' +
-						'<button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>' +
-					'</div>' +
-	            '</div>' +
-	        '</div>' +
-        '</div>';
-		var confirmHtml = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
-	        '<div class="modal-dialog modal-sm">' +
-	            '<div class="modal-content">' +
-	                '<div class="modal-header">' +
-	                    '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
-	                    '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
-	                '</div>' +
-	                '<div class="modal-body">' +
-	                	'<p>[Message]</p>' +
-	                '</div>' +
-	                '<div class="modal-footer">' +
-						'<button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>' +
-						'<button type="button" class="btn btn-success ok" data-dismiss="modal">[BtnOk]</button>' +
-					'</div>' +
-	            '</div>' +
-	        '</div>' +
-        '</div>';
-		_ui.alert = function(options){
+		var alertHtml = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">'
+				+ '<div class="modal-dialog modal-sm">'
+				+ '<div class="modal-content">'
+				+ '<div class="modal-header">'
+				+ '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'
+				+ '<h4 class="modal-title" id="modalLabel">[Title]</h4>'
+				+ '</div>'
+				+ '<div class="modal-body">'
+				+ '<p>[Message]</p>'
+				+ '</div>'
+				+ '<div class="modal-footer">'
+				+ '<button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>'
+				+ '</div>' + '</div>' + '</div>' + '</div>';
+		var confirmHtml = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">'
+				+ '<div class="modal-dialog modal-sm">'
+				+ '<div class="modal-content">'
+				+ '<div class="modal-header">'
+				+ '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'
+				+ '<h4 class="modal-title" id="modalLabel">[Title]</h4>'
+				+ '</div>'
+				+ '<div class="modal-body">'
+				+ '<p>[Message]</p>'
+				+ '</div>'
+				+ '<div class="modal-footer">'
+				+ '<button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>'
+				+ '<button type="button" class="btn btn-success ok" data-dismiss="modal">[BtnOk]</button>'
+				+ '</div>' + '</div>' + '</div>' + '</div>';
+		_ui.alert = function(options) {
 			options = $.extend({}, {
-                title:"提示",
-                message:"提示内容",
-                btnok:"确认",
-                backdrop:true
-            }, options || {});
-			var modalId = UUID.generate().replace(/-/g,'');
+				title : "提示",
+				message : "提示内容",
+				btnok : "确认",
+				backdrop : true
+			}, options || {});
+			var modalId = UUID.generate().replace(/-/g, '');
 			var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
-			var content = alertHtml.replace(reg, function (node, key) {
-                return {
-                    Id: modalId,
-                    Title: options.title,
-                    Message: options.message,
-                    BtnOk: options.btnok,
-                }[key];
-            });
+			var content = alertHtml.replace(reg, function(node, key) {
+				return {
+					Id : modalId,
+					Title : options.title,
+					Message : options.message,
+					BtnOk : options.btnok,
+				}[key];
+			});
 			$('body').append(content);
 			var modal = $('#' + modalId);
 			modal.modal({
-                backdrop: options.backdrop
-            });
-			modal.on('hide.bs.modal', function (e) {
-                $('body').find('#' + modalId).remove();
-            });
+				backdrop : options.backdrop
+			});
+			modal.on('hide.bs.modal', function(e) {
+				$('body').find('#' + modalId).remove();
+			});
 		}
-		_ui.confirm = function(options,callback){
+		_ui.confirm = function(options, callback) {
 			options = $.extend({}, {
-                title:"确认",
-                message:"确认内容",
-                btnok:"确认",
-                btncl:"取消",
-                backdrop:true
-            }, options || {});
-			var modalId = UUID.generate().replace(/-/g,'');
+				title : "确认",
+				message : "确认内容",
+				btnok : "确认",
+				btncl : "取消",
+				backdrop : true
+			}, options || {});
+			var modalId = UUID.generate().replace(/-/g, '');
 			var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
-			var content = confirmHtml.replace(reg, function (node, key) {
-                return {
-                    Id: modalId,
-                    Title: options.title,
-                    Message: options.message,
-                    BtnOk: options.btnok,
-                    BtnCancel: options.btncl
-                }[key];
-            });
+			var content = confirmHtml.replace(reg, function(node, key) {
+				return {
+					Id : modalId,
+					Title : options.title,
+					Message : options.message,
+					BtnOk : options.btnok,
+					BtnCancel : options.btncl
+				}[key];
+			});
 			$('body').append(content);
 			var modal = $('#' + modalId);
 			modal.modal({
-                backdrop: options.backdrop
-            });
-			modal.on('hide.bs.modal', function (e) {
-                $('body').find('#' + modalId).remove();
-            });
-            modal.find('.ok').removeClass('btn-primary').addClass('btn-success');
-            modal.find('.ok').on('click',callback);
+				backdrop : options.backdrop
+			});
+			modal.on('hide.bs.modal', function(e) {
+				$('body').find('#' + modalId).remove();
+			});
+			modal.find('.ok').removeClass('btn-primary')
+					.addClass('btn-success');
+			modal.find('.ok').on('click', callback);
 		}
 		/**
 		 * 初始化toastr提示工具参数
@@ -156,8 +154,32 @@
 			};
 			toastr.options = messageOpts;
 		}
+		_ui.loading = function() {
+			$("body").append('<div class="loading"></div>')
+		}
+		_ui.ready = function() {
+			$(".loading").remove();
+		}
+		_ui.newTag = function(options){
+			options = $.extend({}, {
+				title : "新建标签",
+				closeable: true,
+				labelBar:$(".center-panel .label-bar"),
+				tagId:""
+			}, options || {});
+			var tagId = options.tagId||UUID.generate().replace(/-/g, '');
+			options.labelBar.append('<div class="label-tag tag-active"><span>主页</span></div>');
+			
+		}
+		_ui.closeTag = function(){
+			
+		}
+		_ui.switchTag = function(){
+			
+		}
 		return _ui;
 	}();
-	window.tw = tw;
-	tw.init();
+	$(document).ready(function(){
+		tw.ui.init();
+	});
 }(jQuery, window));

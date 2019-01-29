@@ -1,5 +1,5 @@
 function refreshVerification() {
-	$("img[name=verificationImg]")[0].src = "verification?uri=" + tw.ws.uri + "&r=" + Math.random();
+	$("img[name=verificationImg]")[0].src = tw.ctx + "verification?uri=" + tw.ws.uri + "&r=" + Math.random();
 }
 $(document).ready(function(){
 	refreshVerification();
@@ -12,9 +12,9 @@ $(document).ready(function(){
 	verification.on("keyup",keyup2login);
 	function keyup2login(event){
 		switch(event.keyCode) {
-		case 13:
-			login.click();
-			break;
+			case 13:
+				loginBtn.click();
+				break;
 		}
 	}
 	loginBtn.on("click", function(){

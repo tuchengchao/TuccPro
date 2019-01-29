@@ -23,14 +23,14 @@ $(document).ready(function(t){
 			rph.animate({ 
 				right:parseInt(rph.css('right'), 10) == rp.width() ? rph.outerWidth() : rp.width() 
 			});
-			rph.html("&gt;");
+			rph.html("&nbsp;&gt;");
 			rp.show(ppt);
 		}
 		else{
 			rph.animate({ 
 				right:parseInt(rph.css('right'), 10) == 0 ? - rph.outerWidth() : 0 
 			});
-			rph.html("&lt;");
+			rph.html("&nbsp;&lt;");
 			rp.hide(ppt);
 		}
 	});

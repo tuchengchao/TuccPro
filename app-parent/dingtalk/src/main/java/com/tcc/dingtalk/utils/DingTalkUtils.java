@@ -33,7 +33,7 @@ public class DingTalkUtils {
 				public void run() {
 					DingTalkUtils.reflashAccessToken();
 				}
-			}, Long.parseLong(resJson.getString("expires_in"))/500);
+			}, Long.parseLong(resJson.getString("expires_in"))*999);//比过期时间少一点
 		}
 	}
 	/**
