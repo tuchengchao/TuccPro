@@ -10,9 +10,9 @@ spring:
 ################### datasource ###################
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?useSSL=false&autoReconnect=true&tinyInt1isBit=false&useUnicode=true&characterEncoding=utf8
-    username: root
-    password: 1234
+    url: jdbc:mysql://localhost:3306/testdb?useSSL=false&autoReconnect=true&tinyInt1isBit=false&useUnicode=true&characterEncoding=utf8
+    username: tucc
+    password: tcc123456
 ################### redis ###################
   redis:
     # Redis数据库索引（默认为0）
